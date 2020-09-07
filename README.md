@@ -1,4 +1,4 @@
-# Jarvis
+# Jarvis (Early WIP)
 
 Jarvis's goal is to improve JavaScript intellisense in Visual Studio Code using [tree sitter](https://tree-sitter.github.io/tree-sitter/) for performant static analysis. Static analysis can identify and fix unused variables, missing imports, and more.
 
