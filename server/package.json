@@ -1,0 +1,25 @@
+{
+  "name": "jarvis-server",
+  "displayName": "Jarvis Server",
+  "description": "JavaScript intellisense based on tree-sitter.",
+  "version": "0.0.1",
+  "publisher": "Jason Pang",
+  "repository": "https://github.com/jasonpang/jarvis",
+  "devDependencies": {
+    "@types/node": "^14.6.4",
+    "@typescript-eslint/eslint-plugin": "^4.0.1",
+    "@typescript-eslint/parser": "^4.0.1",
+    "eslint": "^7.8.1",
+    "typescript": "^4.0.2"
+  },
+  "scripts": {
+    "watch": "tsc -watch -p ./",
+    "server": "nodemon -x 'clear;node' --watch out out/index.js"
+  },
+  "dependencies": {
+    "@metarhia/jstp": "^2.3.0",
+    "@types/vscode": "^1.48.0",
+    "tree-sitter": "^0.16.2",
+    "tree-sitter-javascript": "file:../../tree-sitter-javascript"
+  }
+}

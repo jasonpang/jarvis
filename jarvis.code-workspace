@@ -1,0 +1,18 @@
+{
+  "folders": [
+    {
+      "path": "vscode-client"
+    },
+    {
+      "path": "server"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/out": true
+    },
+    "files.watcherExclude": {
+      "**/out": true
+    }
+  }
+}
