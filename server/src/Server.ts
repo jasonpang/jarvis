@@ -2,7 +2,7 @@ import { Application, net } from '@metarhia/jstp'
 import os from 'os'
 import path from 'path'
 import fs from 'fs'
-import FileParser from './FileParser'
+import SyntaxParser from './SyntaxParser'
 import { TextDocument, TextDocumentChangeEvent, Position } from 'vscode'
 import Parser from 'tree-sitter'
 
@@ -10,7 +10,11 @@ const trees: { [uri: string]: Parser.Tree } = {}
 
 export default class Server {
   static removeExistingIpcFile() {
-    fs.unlinkSync(path.join(os.tmpdir(), 'jarvis-ipc'))
+    const ipcFilePath = path.join(os.tmpdir(), 'jarvis-ipc')
+    if (!fs.existsSync(ipcFilePath)) {
+      return
+    }
+    fs.unlinkSync(ipcFilePath)
   }
 
   static run() {
@@ -21,8 +25,8 @@ export default class Server {
           { document, text }: { document: TextDocument; text: string },
           callback: any
         ) => {
-          const result = FileParser.parse(text)
-          trees[document.uri.toString()] = result
+          const result = new SyntaxParser(text).parse()
+          // trees[document.uri.toString()] = result
           console.log(result.rootNode.toString())
           callback(null, result)
         },
@@ -44,7 +48,7 @@ export default class Server {
           for (const delta of deltas) {
             old.edit(delta)
           }
-          const t = FileParser.parse(fullText, old) // TODO don't use getText, use Parser.Input
+          const t = new SyntaxParser(fullText).parse() // TODO don't use getText, use Parser.Input
           trees[edit.document.uri.toString()] = t
           console.log('[vscode.onDidChangeTextDocument]', t.rootNode.toString())
         },
