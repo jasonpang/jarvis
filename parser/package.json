@@ -15,6 +15,6 @@
     "watch": "tsc -watch -p ./",
     "server": "nodemon -x 'clear;node' --watch out out/index.js",
     "test": "nodemon -x 'clear;node' --watch out out/test/index.js",
-    "test/debug": "nodemon -x 'clear;node --inspect-brk' --watch out out/test/index.js"
+    "test/debug": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out out/test/index.js"
   }
 }

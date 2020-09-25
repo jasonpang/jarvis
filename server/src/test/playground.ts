@@ -32,7 +32,6 @@ test(`playground"`, () => {
   const parser = new SyntaxParser(program2)
 
   const tree1 = parser.parse()
-  debugger
   var identifiersA = tree1.rootNode.descendantsOfType('identifier')
   var numbersA = tree1.rootNode.descendantsOfType('number')
 
