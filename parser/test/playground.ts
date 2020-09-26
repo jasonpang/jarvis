@@ -30,7 +30,6 @@ export default function Component() {
 
 const program2 = `throw 1, 'test', new Error('hi') `
 test(`playground`, () => {
-  // const generator = new LanguageParserGenerator(JavaScriptLanguageDefinition)
   const parser = new TreeSitterParser(JavaScriptLanguageDefinition, program1)
   const result = parser.parse()
   debugger

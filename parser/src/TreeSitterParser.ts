@@ -1,10 +1,15 @@
 import InternalTreeSitterParser, { TreeCursor, SyntaxNode } from 'tree-sitter'
 import JavaScriptLanguage from 'tree-sitter-javascript'
+import { SyntaxTreeNode } from './SyntaxTreeNode'
 import {
   TreeSitterLanguage,
   TreeSitterLanguageNode
 } from './TreeSitterLanguage'
-import { LanguageNodeKind } from './types'
+
+export interface ParsingContext {
+  cursor: InternalTreeSitterParser.TreeCursor
+  node: SyntaxTreeNode
+}
 
 export class TreeSitterParser {
   private internalParser: InternalTreeSitterParser
@@ -13,27 +18,39 @@ export class TreeSitterParser {
   private prevTree?: InternalTreeSitterParser.Tree
   private tree?: InternalTreeSitterParser.Tree
   private parsers: Map<string, Function> = new Map()
+  private context!: ParsingContext
 
   constructor(languageJson: any, initialSource: string) {
     this.source = initialSource
     this.internalParser = new InternalTreeSitterParser()
     this.internalParser.setLanguage(JavaScriptLanguage)
     this.language = new TreeSitterLanguage(languageJson)
-    for (const node of this.language.definition) {
-      this.parsers.set(
-        node.type,
-        this._constructParser({
-          languageNode: node
-        })
-      )
-    }
   }
-  //a
 
   updateSource(changedRanges: any) {}
 
   setSource(source: string) {
     this.source = source
+  }
+
+  getFormattedNodeName(unformattedOrFormattedNodeName: string) {
+    const isNameUnformatted = unformattedOrFormattedNodeName.includes('_')
+
+    return isNameUnformatted
+      ? TreeSitterLanguageNode.getFormattedName(unformattedOrFormattedNodeName)
+      : unformattedOrFormattedNodeName
+  }
+
+  get currentNode() {
+    return this.context.cursor.currentNode
+  }
+
+  get currentNodeFormattedName() {
+    return this.getFormattedNodeName(this.currentNode.type)
+  }
+
+  get currentNodeFieldName(): string {
+    return (this.context.cursor as any).currentFieldName as string
   }
 
   parse() {
@@ -44,10 +61,9 @@ export class TreeSitterParser {
       return console.error('Unable to parse tree.')
     }
 
-    let context = {
+    this.context = {
       cursor: this.tree.walk(),
-      currentParsedNode: {},
-      depth: 0
+      node: new SyntaxTreeNode(this.tree.rootNode)
     }
 
     console.log(
@@ -57,210 +73,76 @@ export class TreeSitterParser {
       'color: #637777;'
     )
 
-    do {
-      const formattedNodeName = TreeSitterLanguageNode.getFormattedName(
-        context.cursor.nodeType
-      )
-      const currentNodeParser = this.parsers.get(formattedNodeName)
-      if (typeof currentNodeParser === 'function') {
-        context.currentParsedNode = {
-          ...context.currentParsedNode,
-          ...currentNodeParser(context.cursor.currentNode, context)
-        }
-      }
-    } while (this.gotoPreorderSucc(context))
+    while (this.traversePreorder()) {}
 
-    return context.currentParsedNode
+    return this.context.node
   }
 
-  private gotoPreorderSucc(context: {
-    cursor: InternalTreeSitterParser.TreeCursor
-    currentParsedNode: any
-    depth: number
-  }): boolean {
-    if (context.cursor.gotoFirstChild()) {
-      context.depth += 1
-      const formattedNodeName = TreeSitterLanguageNode.getFormattedName(
-        context.cursor.nodeType
-      )
-      context.currentParsedNode[formattedNodeName] ||= {}
-      context.currentParsedNode[formattedNodeName].parent =
-        context.currentParsedNode
-      context.currentParsedNode = context.currentParsedNode[formattedNodeName]
+  private traversePreorder(): boolean {
+    if (this.context.cursor.gotoFirstChild()) {
+      /* Navigated to a child node */
+      const current = this.context.node
+      const nodeName = this.currentNodeFormattedName
+
+      if (this.currentNode.isNamed) {
+        current.children[nodeName] = new SyntaxTreeNode(this.currentNode)
+        current.children[nodeName].parent = current
+
+        this.context.node = current.children[nodeName]
+        this.context.node.depth = this.context.node.parent.depth + 1
+      } else {
+        current.literals[nodeName] = new SyntaxTreeNode(this.currentNode)
+        current.literals[nodeName].parent = current
+
+        this.context.node = current.literals[nodeName]
+        this.context.node.depth = this.context.node.parent.depth + 1
+      }
       return true
     }
-    while (!context.cursor.gotoNextSibling()) {
-      if (!context.cursor.gotoParent()) {
+    while (!this.context.cursor.gotoNextSibling()) {
+      if (!this.context.cursor.gotoParent()) {
+        /* The entire tree's pre-order traversal is complete */
         return false
       } else {
-        context.depth -= 1
+        /* Navigated to a parent node after exhausting all sibling nodes */
+        this.context.node = this.context.node.parent
       }
     }
 
-    const formattedNodeName = TreeSitterLanguageNode.getFormattedName(
-      context.cursor.nodeType
-    )
-    context.currentParsedNode[formattedNodeName] ||= {}
-    context.currentParsedNode[formattedNodeName].parent =
-      context.currentParsedNode
-    context.currentParsedNode = context.currentParsedNode[formattedNodeName]
+    /* Navigated to a sibling node */
+    if (this.currentNodeFieldName) {
+      this.context.node = this.context.node.parent
+      const fieldName = this.currentNodeFieldName
+
+      const current = this.context.node
+      current.fields[fieldName] = new SyntaxTreeNode(this.currentNode)
+      current.fields[fieldName].parent = current
+
+      this.context.node = current.fields[fieldName]
+      this.context.node.depth = this.context.node.parent.depth + 1
+    } else {
+      if (this.currentNode.isNamed) {
+        this.context.node = this.context.node.parent
+        const nodeName = this.currentNodeFormattedName
+
+        const current = this.context.node
+        current.children[nodeName] = new SyntaxTreeNode(this.currentNode)
+        current.children[nodeName].parent = current
+
+        this.context.node = current.children[nodeName]
+        this.context.node.depth = this.context.node.parent.depth + 1
+      } else {
+        this.context.node = this.context.node.parent
+        const nodeName = this.currentNodeFormattedName
+
+        const current = this.context.node
+        current.literals[nodeName] = new SyntaxTreeNode(this.currentNode)
+        current.literals[nodeName].parent = current
+
+        this.context.node = current.literals[nodeName]
+        this.context.node.depth = this.context.node.parent.depth + 1
+      }
+    }
     return true
-  }
-
-  private _constructParser({
-    languageNode
-  }: {
-    languageNode: TreeSitterLanguageNode
-  }) {
-    function getTabs(n: number) {
-      let c = 0,
-        res = ''
-      while (c++ < n) res += '\t'
-      return res
-    }
-
-    let functionName = `parse${languageNode.type}Node`
-    const __objForFnName = {
-      [functionName]: (
-        node: SyntaxNode,
-        context: {
-          cursor: InternalTreeSitterParser.TreeCursor
-          currentParsedNode: any
-          depth: number
-        },
-        opts: {
-          hideNodePrint: boolean
-        } = {
-          hideNodePrint: false
-        }
-      ) => {
-        // if (!opts.hideNodePrint) {
-        //   const lines = node.text.trim().split('\n')
-
-        //   console.log(
-        //     `${getTabs(context.depth)}%cↂ %c${languageNode.type}\t%c${
-        //       context.cursor.currentFieldName
-        //     }\t%c${
-        //       lines.length > 1
-        //         ? `${lines[0]} ... (${lines.length - 2} more lines) ... ${
-        //             lines[lines.length - 1]
-        //           }`
-        //         : node.text.trim()
-        //     }`,
-        //     'font-weight: bold; color: #7fdbca;',
-        //     'font-weight: semibold; color: #7fdbca;',
-        //     'font-weight: semibold; color: #faf39f;',
-        //     'color: #637777;'
-        //   )
-        // }
-        const lines = node.text.trim().split('\n')
-
-        if (context.cursor.currentFieldName) {
-          const fieldName = context.cursor.currentFieldName
-          const fieldType = context.cursor.currentNode.type
-          const formattedFieldType = TreeSitterLanguageNode.getFormattedName(
-            fieldType
-          )
-
-          console.log(
-            `${getTabs(
-              context.depth
-            )}%c⊙ ${fieldName}%c: ${formattedFieldType}\t%c${
-              lines.length > 1
-                ? `${lines[0]} ... (${lines.length - 2} more lines) ... ${
-                    lines[lines.length - 1]
-                  }`
-                : node.text.trim()
-            }`,
-            'font-weight: bold; color: #82AAFF;',
-            'font-weight: normal; color: #7493C1;',
-            'color: #637777;'
-          )
-        } else {
-          console.log(
-            `${getTabs(context.depth)}%cↂ %c${languageNode.type}\t%c${
-              lines.length > 1
-                ? `${lines[0]} ... (${lines.length - 2} more lines) ... ${
-                    lines[lines.length - 1]
-                  }`
-                : node.text.trim()
-            }`,
-            'font-weight: bold; color: #7fdbca;',
-            'font-weight: semibold; color: #7fdbca;',
-            'color: #637777;'
-          )
-        }
-        const result: any = {}
-
-        if (!languageNode.named) {
-          result.literal = languageNode.type
-          return result
-        }
-
-        if (
-          languageNode.kind === LanguageNodeKind.Supertype ||
-          !Array.isArray(node.fields)
-        ) {
-          return result
-        }
-
-        // for (const fieldName of node.fields) {
-        //   const fieldNode = node[fieldName]
-
-        //   if (fieldNode == null) {
-        //     continue
-        //   }
-
-        //   const fieldType = fieldNode.type
-        //   debugger
-        //   const parserFn = this.parsers.get(fieldType) // infinite loop if formattenodeype
-        //   if (parserFn) {
-        //     if (!result[fieldName]) {
-        //       result[fieldName] = {}
-        //     }
-        //     try {
-        //       result[fieldName][fieldType] = parserFn(node, context, {
-        //         hideNodePrint: false
-        //       })
-        //     } catch (e) {
-        //       console.error('Caught error while parsing field', fieldName, e)
-        //     }
-        //     // console.log(
-        //     //   getTabs(context.depth + 1),
-        //     //   '⋮',
-        //     //   `${fieldName} ⟶ ${fieldType}`,
-        //     //   result[fieldName][fieldType],
-        //     //   node.fields
-        //     // )
-        //     console.log('GOT HEREEEEEEEEEEEe')
-        //     console.log(
-        //       `${getTabs(
-        //         context.depth + 1
-        //       )}%c⋮ %c${fieldName} ⟶ ${fieldType}\t%c${
-        //         result[fieldName][fieldType]
-        //       }`,
-        //       'font-weight: bold; color: #82AAFF;',
-        //       'font-weight: semibold; color: #82AAFF;',
-        //       'color: #637777;'
-        //     )
-        //   } else {
-        //     if (!result[fieldName]) {
-        //       result[fieldName] = fieldNode.text
-        //     }
-        // console.log(
-        //   `${getTabs(
-        //     context.depth + 1
-        //   )}%c⋮ %c${fieldName} ⟶ ${fieldType}\t%c${result[fieldName]}`,
-        //   'font-weight: bold; color: #82AAFF;',
-        //   'font-weight: semibold; color: #82AAFF;',
-        //   'color: #637777;'
-        // )
-        //   }
-        // }
-
-        return result
-      }
-    }
-    return __objForFnName[functionName]
   }
 }
