@@ -1,8 +1,6 @@
-import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
-import { SyntaxType } from '../tree-sitter-javascript'
+import JavaScriptLanguageDefinition from './assets/javascript-lang-node-types.json'
 import { SyntaxTreeNode } from './SyntaxTreeNode'
 import { SourceEdit, TreeSitterParser } from './TreeSitterParser'
-import cloneDeep from 'lodash.clonedeep'
 import { ProgramScanner } from './ProgramScanner'
 
 export interface ImportMap {
@@ -36,7 +34,7 @@ export class Program {
   public imports: ImportMap[] = []
   public exports: ExportMap[] = []
 
-  constructor(source: string) {
+  constructor(private source: string) {
     this.parser = new TreeSitterParser(JavaScriptLanguageDefinition, source)
     this.tree = this.parser.parse()
     this.scanner = new ProgramScanner()
@@ -49,11 +47,8 @@ export class Program {
       .map(key => (context.vars as any)[key])
   }
 
-  updateSource(deltas: SourceEdit[], newSource: string) {
-    for (const delta of deltas) {
-      this.parser.edit(delta)
-    }
-    this.parser.setSource(newSource)
+  updateSource(deltas: SourceEdit[]) {
+    this.parser.updateSource(deltas)
     console.log('Updating deltas and setting new source code...', deltas)
   }
 

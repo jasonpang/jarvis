@@ -1,7 +1,7 @@
 {
   "name": "@jarvis/parser",
   "version": "1.0.0",
-  "main": "out/src/index.js",
+  "main": "build/parser/src/index.js",
   "license": "MIT",
   "dependencies": {
     "@types/baretest": "^2.0.0",
@@ -16,15 +16,5 @@
     "tree-sitter": "^0.16.2",
     "tree-sitter-javascript": "file:../../tree-sitter-javascript",
     "web-tree-sitter": "^0.16.4"
-  },
-  "scripts": {
-    "watch": "tsc -watch -p ./",
-    "server": "nodemon -x 'clear;node' --watch out out/index.js",
-    "test": "nodemon -x 'clear;node' --watch out out/test/index.js",
-    "test/debug": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out out/test/index.js",
-    "test/debug/no-break": "nodemon -x 'clear;node --enable-source-maps --inspect --stack-size=100' --watch out out/test/index.js",
-    "test/scanner": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out/src/ProgramScanner.js out/test/index.js",
-    "scripts/generate-scanner": "nodemon -x 'clear;node --enable-source-maps --stack-size=100' --watch out/src out/test/scripts/generateProgramScanner.js",
-    "scripts/generate-scanner/once": "clear;node --enable-source-maps --stack-size=100 out/test/scripts/generateProgramScanner.js"
   }
 }

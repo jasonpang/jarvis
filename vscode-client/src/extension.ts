@@ -9,6 +9,8 @@ import {
 } from 'vscode'
 import Client from './Client'
 import StatusBar from './StatusBar'
+import { SourceChangeDelta } from '@jarvis/common'
+import { Application, net } from '@metarhia/jstp'
 
 let app: any
 
@@ -53,32 +55,30 @@ async function onDidOpenTextDocument(document: TextDocument) {
 }
 
 function onDidChangeTextDocument(edit: TextDocumentChangeEvent) {
-  const deltas = []
-  for (const e of edit.contentChanges) {
+  const deltas = edit.contentChanges.map(e => {
     const startIndex = e.rangeOffset
     const oldEndIndex = e.rangeOffset + e.rangeLength
     const newEndIndex = e.rangeOffset + e.text.length
-    const startPos = edit.document.positionAt(startIndex)
-    const oldEndPos = edit.document.positionAt(oldEndIndex)
-    const newEndPos = edit.document.positionAt(newEndIndex)
-    const startPosition = asPoint(startPos)
-    const oldEndPosition = asPoint(oldEndPos)
-    const newEndPosition = asPoint(newEndPos)
-    const delta = {
+    const startPosition = asPoint(edit.document.positionAt(startIndex))
+    const oldEndPosition = asPoint(edit.document.positionAt(oldEndIndex))
+    const newEndPosition = asPoint(edit.document.positionAt(newEndIndex))
+
+    return {
       startIndex,
       oldEndIndex,
       newEndIndex,
       startPosition,
       oldEndPosition,
-      newEndPosition
+      newEndPosition,
+      text: e.text
     }
-    deltas.push(delta)
-  }
+  })
 
   app.vscode.onDidChangeTextDocument({
-    edit,
-    deltas,
-    fullText: edit.document.getText()
+    event: {
+      documentUri: edit.document.uri,
+      deltas
+    }
   })
 }
 

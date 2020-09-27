@@ -2,9 +2,15 @@ import { Application, net } from '@metarhia/jstp'
 import os from 'os'
 import path from 'path'
 import fs from 'fs'
-import { TextDocument, TextDocumentChangeEvent, Position } from 'vscode'
+import {
+  TextDocument,
+  TextDocumentChangeEvent,
+  Position,
+  TextDocumentContentChangeEvent
+} from 'vscode'
 import { Program } from '@jarvis/parser'
 import { inspect } from 'util'
+import { SourceChangeEvent } from '@jarvis/common'
 
 const trees: { [uri: string]: Program } = {}
 
@@ -37,30 +43,32 @@ export default class Server {
           { document, text }: { document: TextDocument; text: string },
           callback: any
         ) => {
-          const program = new Program(text)
-          callback(null, 'success')
+          console.log(
+            '[vscode.onDidOpenTextDocument]',
+            document.uri.toString(),
+            document.lineCount
+          )
+
+          trees[document.uri.toString()] = new Program(text)
+          callback(null, `Created AST for ${document.uri.toString()}`)
         },
         onDidChangeTextDocument: (
           connection: any,
-          {
-            edit,
-            deltas,
-            fullText
-          }: { edit: TextDocumentChangeEvent; deltas: any; fullText: string },
+          { deltas, documentUri }: SourceChangeEvent,
           callback: any
         ) => {
-          if (!edit.contentChanges.length) {
+          if (!deltas.length) {
             return
           }
 
-          let program = trees[edit.document.uri.toString()]
+          let program = trees[documentUri]
 
           if (program) {
-            program.updateSource(deltas, fullText)
+            program.updateSource(deltas)
             program.scan()
           } else {
-            program = new Program(fullText)
-            trees[edit.document.uri.toString()] = program
+            program = new Program('')
+            trees[documentUri] = program
           }
 
           // console.clear()

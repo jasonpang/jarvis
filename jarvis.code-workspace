@@ -1,13 +1,7 @@
 {
   "folders": [
     {
-      "path": "vscode-client"
-    },
-    {
-      "path": "server"
-    },
-    {
-      "path": "parser"
+      "path": "."
     }
   ],
   "settings": {

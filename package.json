@@ -1,0 +1,8 @@
+{
+  "scripts": {
+    "watch": "clear && tsc --build --watch",
+    "parser/generate": "node --enable-source-maps --stack-size=100 parser/build/parser/test/scripts/generateProgramScanner.js",
+    "server": "nodemon -x 'clear;node --enable-source-maps' --watch server/build/server server/build/server/src/index.js",
+    "extension/test": "nodemon -x 'clear;node --enable-source-maps' --watch vscode-client/build/vscode-client vscode-client/build/vscode-client/src/test/runTest.js"
+  }
+}

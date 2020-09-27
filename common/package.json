@@ -1,7 +1,7 @@
 {
-  "name": "@jarvis/server",
-  "main": "build/server/src/index.js",
-  "displayName": "Jarvis Server",
+  "name": "@jarvis/common",
+  "main": "build/common/src/index.js",
+  "displayName": "Jarvis Common",
   "description": "JavaScript intellisense based on tree-sitter.",
   "version": "0.0.1",
   "publisher": "Jason Pang",
@@ -13,13 +13,5 @@
     "baretest": "^2.0.0",
     "eslint": "^7.8.1",
     "typescript": "^4.0.2"
-  },
-  "dependencies": {
-    "@metarhia/jstp": "^2.3.0",
-    "@types/baretest": "^2.0.0",
-    "@types/vscode": "^1.48.0",
-    "tree-sitter": "^0.16.2",
-    "tree-sitter-javascript": "file:../../tree-sitter-javascript",
-    "web-tree-sitter": "^0.16.4"
   }
 }

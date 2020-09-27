@@ -23,30 +23,97 @@ export type SourceEdit = {
   startPosition: Point
   oldEndPosition: Point
   newEndPosition: Point
+  text: string
 }
 
 export class TreeSitterParser {
   private internalParser: InternalTreeSitterParser
   private language: TreeSitterLanguage
-  private source: string
+  private source: string[]
   private prevTree?: InternalTreeSitterParser.Tree
   private tree?: InternalTreeSitterParser.Tree
   private parsers: Map<string, Function> = new Map()
   private context!: ParsingContext
 
-  constructor(languageJson: any, initialSource: string) {
-    this.source = initialSource
+  constructor(languageJson: any, initialSource: string | string[]) {
+    this.source = Array.isArray(initialSource)
+      ? initialSource
+      : initialSource.split('\n')
     this.internalParser = new InternalTreeSitterParser()
     this.internalParser.setLanguage(JavaScriptLanguage)
     this.language = new TreeSitterLanguage(languageJson)
   }
 
-  edit(changedRanges: SourceEdit) {
-    this.tree?.edit(changedRanges)
-  }
+  updateSource(changes: SourceEdit[]) {
+    debugger
+    for (const change of changes) {
+      this.tree?.edit(change)
 
-  setSource(source: string) {
-    this.source = source
+      const changeLines = change.text.split('\n')
+
+      const numLinesDiff = change.newEndPosition.row - change.oldEndPosition.row
+      if (numLinesDiff > 0) {
+        /* e.g. Pasting 6 lines of code over 3 lines of code */
+        this.source.splice(
+          change.oldEndPosition.row,
+          0,
+          ...Array(numLinesDiff).fill('')
+        )
+      } else if (numLinesDiff < 0) {
+        /* e.g. Replacing 6 lines of code with 3 lines of code in one copy-paste operation */
+        this.source.splice(
+          change.oldEndPosition.row - numLinesDiff,
+          numLinesDiff
+        )
+      }
+
+      for (
+        let row = change.startPosition.row;
+        row < change.newEndPosition.row;
+        row++
+      ) {
+        /* Could be adding new lines to a document */
+        let content = this.source[row] != null ? this.source[row] : ''
+
+        if (
+          row === change.startPosition.row &&
+          row < change.newEndPosition.row
+        ) {
+          /* This is a multiline change and this is the first changed row; the changed column could be in the beginning, middle, end
+               ..etc anywhere in this row. */
+          content =
+            content.slice(0, change.startPosition.column) + changeLines[0]
+        } else if (
+          row === change.newEndPosition.row &&
+          row > change.startPosition.row
+        ) {
+          /* This is a multiline change and this is the last changed row; the changed column could be in the beginning, middle, end
+               ..etc anywhere in this row. */
+          const lastChangedLine = changeLines[changeLines.length - 1]
+          content =
+            lastChangedLine + content.slice(change.oldEndPosition.column)
+        } else if (
+          row > change.startPosition.row &&
+          row < change.newEndPosition.row
+        ) {
+          /* This is a multiline change and this is between the first and last changed row; the
+            entire text in this row is */
+          const relativeIncrementIndex = row - change.startPosition.row
+          content = changeLines[relativeIncrementIndex]
+        } else if (
+          row === change.startPosition.row &&
+          row === change.newEndPosition.row
+        ) {
+          /* This is a single-line change. */
+          content =
+            content.slice(change.startPosition.column) +
+            change +
+            content.slice(change.oldEndPosition.column)
+        }
+
+        this.source[change.startPosition.row] = content
+      }
+    }
   }
 
   private getFormattedNodeName(unformattedOrFormattedNodeName: string) {
@@ -67,8 +134,24 @@ export class TreeSitterParser {
     return (this.context.cursor as any).currentFieldName as string
   }
 
+  getSource(): string[] {
+    return this.source
+  }
+
   parse() {
-    this.tree = this.internalParser.parse(this.source, this.prevTree)
+    this.tree = this.internalParser.parse(
+      // @ts-ignore
+      (_index, position) => {
+        let line = this.source[position.row]
+        if (line) {
+          return line.slice(position.column)
+        } else {
+          console.error('Could not find column:', position.column)
+          return ''
+        }
+      },
+      this.prevTree
+    )
     this.prevTree = this.tree
 
     this.context = {

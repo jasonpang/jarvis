@@ -1,14 +1,7 @@
 {
+  "extends": "../tsconfig-base",
+  "include": ["src/**/*", "test/**/*", "src/assets/*.json"],
   "compilerOptions": {
-    "module": "commonjs",
-    "target": "es2019",
-    "lib": ["ES2019"],
-    "outDir": "out",
-    "rootDir": "./",
-    "strict": true,
-    "esModuleInterop": true,
-    "inlineSourceMap": true,
-    "resolveJsonModule": true
-  },
-  "exclude": ["node_modules", ".vscode-test"]
+    "outDir": "build"
+  }
 }

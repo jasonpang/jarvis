@@ -1,5 +1,6 @@
-# Out
-out/
+# Build Files
+.vscode-test/
+**/build
 
 # Logs
 logs

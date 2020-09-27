@@ -1,10 +1,5 @@
 /* This is an auto-generated file. Last Updated: 9/26/2020, 6:40:36 PM */
 
-import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
-import { SyntaxType } from '../tree-sitter-javascript'
-import { SyntaxTreeNode } from './SyntaxTreeNode'
-import { TreeSitterParser } from './TreeSitterParser'
-import cloneDeep from 'lodash.clonedeep'
 import { ConstructContext } from './ProgramScannerGenerator'
 
 export class ProgramScanner {

@@ -1,0 +1,11 @@
+/* https://www.typescriptlang.org/docs/handbook/project-references.html#guidance */
+{
+  "files": [],
+  "include": [],
+  "references": [
+    { "path": "./common" },
+    { "path": "./parser" },
+    { "path": "./server" },
+    { "path": "./vscode-client" }
+  ]
+}

@@ -1,7 +1,6 @@
 {
   "extends": "../tsconfig-base",
   "include": ["src/**/*"],
-  "references": [{ "path": "../common" }, { "path": "../parser" }],
   "compilerOptions": {
     "outDir": "build"
   }

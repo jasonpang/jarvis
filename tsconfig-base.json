@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "pretty": true,
+    "lib": ["ES2019"],
+    "target": "es2019",
+    "rootDir": ".",
+
+    "declaration": true,
+    "declarationMap": true,
+    "sourceMap": true,
+    "composite": true,
+
+    "strict": true,
+
+    "alwaysStrict": true,
+    "preserveConstEnums": true,
+    "newLine": "lf",
+    "incremental": true,
+
+    "module": "commonjs",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "baseUrl": ".",
+    "paths": {
+      "@jarvis/common": ["./common"],
+      "@jarvis/common/*": ["./common/src/*"],
+      "@jarvis/parser": ["./parser"],
+      "@jarvis/parser/*": ["./parser/src/*"]
+    }
+  }
+}
