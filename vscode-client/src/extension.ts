@@ -1,17 +1,14 @@
 import {
-  TextDocument,
-  ExtensionContext,
   commands,
-  window,
-  workspace,
-  Event,
-  TextDocumentContentChangeEvent,
+  ExtensionContext,
+  Position,
+  TextDocument,
   TextDocumentChangeEvent,
-  Position
+  window,
+  workspace
 } from 'vscode'
-import StatusBar from './StatusBar'
 import Client from './Client'
-import { close } from 'fs'
+import StatusBar from './StatusBar'
 
 let app: any
 

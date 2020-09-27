@@ -1,14 +1,10 @@
-import InternalTreeSitterParser, { TreeCursor, SyntaxNode } from 'tree-sitter'
-import JavaScriptLanguage from 'tree-sitter-javascript'
+import { camelize } from 'humps'
+import prettier from 'prettier'
 import { SyntaxTreeNode } from './SyntaxTreeNode'
 import {
   TreeSitterLanguage,
   TreeSitterLanguageNode
 } from './TreeSitterLanguage'
-import { DefinitionChild } from './types'
-import prettier from 'prettier'
-import { camelize } from 'humps'
-import startCase from 'lodash.startcase'
 
 export const prettierFormatOpts = {
   printWidth: 80,

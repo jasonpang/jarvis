@@ -1,4 +1,4 @@
-import InternalTreeSitterParser, { TreeCursor, SyntaxNode } from 'tree-sitter'
+import InternalTreeSitterParser from 'tree-sitter'
 import JavaScriptLanguage from 'tree-sitter-javascript'
 import { SyntaxTreeNode } from './SyntaxTreeNode'
 import {
@@ -9,6 +9,20 @@ import {
 export interface ParsingContext {
   cursor: InternalTreeSitterParser.TreeCursor
   node: SyntaxTreeNode
+}
+
+export type Point = {
+  row: number
+  column: number
+}
+
+export type SourceEdit = {
+  startIndex: number
+  oldEndIndex: number
+  newEndIndex: number
+  startPosition: Point
+  oldEndPosition: Point
+  newEndPosition: Point
 }
 
 export class TreeSitterParser {
@@ -27,7 +41,10 @@ export class TreeSitterParser {
     this.language = new TreeSitterLanguage(languageJson)
   }
 
-  updateSource(changedRanges: any) {}
+  updateSource(changedRanges: SourceEdit) {
+    this.tree?.edit(changedRanges)
+    this.parse()
+  }
 
   setSource(source: string) {
     this.source = source
@@ -60,14 +77,17 @@ export class TreeSitterParser {
       node: new SyntaxTreeNode(this.tree.rootNode)
     }
 
-    console.log(
-      `%cↂ %cAbstract Syntax Tree\t%c${this.tree.rootNode.toString().trim()}`,
-      'font-weight: bold; color: #faf39f;',
-      'font-weight: semibold; color: #faf39f;',
-      'color: #637777;'
-    )
+    // console.log(
+    //   `%cↂ %cAbstract Syntax Tree\t%c${this.tree.rootNode.toString().trim()}`,
+    //   'font-weight: bold; color: #faf39f;',
+    //   'font-weight: semibold; color: #faf39f;',
+    //   'color: #637777;'
+    // )
 
-    while (this.traversePreorder()) {}
+    let count = 15000
+    while (count > 0 && this.traversePreorder()) {
+      count -= 1
+    }
 
     return this.context.node
   }

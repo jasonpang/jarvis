@@ -2,11 +2,23 @@ import { Application, net } from '@metarhia/jstp'
 import os from 'os'
 import path from 'path'
 import fs from 'fs'
-import SyntaxParser from './SyntaxParser'
 import { TextDocument, TextDocumentChangeEvent, Position } from 'vscode'
-import Parser from 'tree-sitter'
+import { Program } from '@jarvis/parser'
+import { inspect } from 'util'
 
-const trees: { [uri: string]: Parser.Tree } = {}
+const trees: { [uri: string]: Program } = {}
+
+const inspectOpts = {
+  colors: true,
+  compact: 0,
+  depth: 10,
+  getters: true,
+  maxArrayLength: 30,
+  maxStringLength: 100,
+  showHidden: false,
+  showProxy: true,
+  sorted: true
+}
 
 export default class Server {
   static removeExistingIpcFile() {
@@ -25,10 +37,8 @@ export default class Server {
           { document, text }: { document: TextDocument; text: string },
           callback: any
         ) => {
-          const result = new SyntaxParser(text).parse()
-          // trees[document.uri.toString()] = result
-          console.log(result.rootNode.toString())
-          callback(null, result)
+          const program = new Program(text)
+          callback(null, 'success')
         },
         onDidChangeTextDocument: (
           connection: any,
@@ -45,15 +55,25 @@ export default class Server {
 
           const old = trees[edit.document.uri.toString()]
 
-          for (const delta of deltas) {
-            old.edit(delta)
+          if (old) {
+            for (const delta of deltas) {
+              old.updateSource(delta)
+            }
           }
-          const t = new SyntaxParser(fullText).parse() // TODO don't use getText, use Parser.Input
-          trees[edit.document.uri.toString()] = t
-          console.log('[vscode.onDidChangeTextDocument]', t.rootNode.toString())
+
+          const program = new Program(fullText) // TODO don't use getText, use Parser.Input
+          trees[edit.document.uri.toString()] = program
+          console.clear()
+          console.log(
+            '[vscode.onDidChangeTextDocument]',
+            inspect(program.imports, inspectOpts)
+          )
         },
         onDidCloseTextDocument: (connection: any, data: any, callback: any) => {
-          console.log('[vscode.onDidCloseTextDocument]', data)
+          console.log(
+            '[vscode.onDidCloseTextDocument]',
+            inspect(data, inspectOpts)
+          )
         }
       },
       imports: {

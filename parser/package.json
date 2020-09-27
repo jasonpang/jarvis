@@ -1,7 +1,7 @@
 {
-  "name": "parser",
+  "name": "@jarvis/parser",
   "version": "1.0.0",
-  "main": "src/index.ts",
+  "main": "out/src/index.js",
   "license": "MIT",
   "dependencies": {
     "@types/baretest": "^2.0.0",

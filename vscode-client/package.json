@@ -1,5 +1,5 @@
 {
-  "name": "jarvis-vscode-client",
+  "name": "@jarvis/vscode-client",
   "displayName": "Jarvis VSCode Client",
   "description": "JavaScript intellisense based on tree-sitter.",
   "version": "0.0.1",

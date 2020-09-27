@@ -8,8 +8,8 @@ const JavaScriptLanguageDefinition = require(path.resolve(
 
 const generator = new ProgramScannerGenerator(JavaScriptLanguageDefinition)
 const generatedScannerClassCode = generator.generate(
-  JavaScriptLanguageDefinition.filter(x => x.named && !x.subtypes).map(
-    x => x.type
-  )
+  JavaScriptLanguageDefinition.filter(
+    (x: { named: any; subtypes: any }) => x.named && !x.subtypes
+  ).map((x: { type: any }) => x.type)
 )
 fs.writeFileSync('src/ProgramScanner.ts', generatedScannerClassCode)

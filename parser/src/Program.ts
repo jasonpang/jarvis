@@ -1,7 +1,7 @@
 import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
 import { SyntaxType } from '../tree-sitter-javascript'
 import { SyntaxTreeNode } from './SyntaxTreeNode'
-import { TreeSitterParser } from './TreeSitterParser'
+import { SourceEdit, TreeSitterParser } from './TreeSitterParser'
 import cloneDeep from 'lodash.clonedeep'
 import { ProgramScanner } from './ProgramScanner'
 
@@ -49,6 +49,10 @@ export class Program {
       .map(key => (context.vars as any)[key])
   }
 
+  updateSource(delta: SourceEdit) {
+    this.parser.updateSource(delta)
+  }
+
   scan() {
     for (const [nodeName, nodes] of Object.entries(this.tree.children)) {
       switch (nodeName) {
@@ -73,7 +77,7 @@ export class Program {
               ]),
               source: this.getVarsFor(context, ['ImportStatement.source'])
             })
-            console.log(`ImportStatement Scan (${node.text}):`, context.vars)
+            // console.log(`ImportStatement Scan (${node.text}):`, context.vars)
           }
           break
         }
@@ -102,8 +106,7 @@ export class Program {
               ]),
               source: this.getVarsFor(context, ['ExportStatement.source'])[0]
             })
-            debugger
-            console.log(`ExportStatement Scan (${node.text}):`, context.vars)
+            // console.log(`ExportStatement Scan (${node.text}):`, context.vars)
           }
           break
         }
