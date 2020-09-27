@@ -2,9 +2,14 @@ import baretest from 'baretest'
 import assert from 'assert'
 import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
 import { TreeSitterParser } from '../src/TreeSitterParser'
-import { ProgramScannerGenerator } from '../src/ProgramScannerGenerator'
+import {
+  prettierFormatOpts,
+  ProgramScannerGenerator
+} from '../src/ProgramScannerGenerator'
 import { TreeSitterLanguageNode } from '../src/TreeSitterLanguage'
 import { Program } from '../src/Program'
+import prettier from 'prettier'
+import fs from 'fs'
 
 const test = baretest('parser playground')
 
@@ -47,10 +52,38 @@ import("a").then((m) => {});
 import.meta.url;
 `
 
-test.skip(`parser playground`, () => {
-  const parser = new TreeSitterParser(JavaScriptLanguageDefinition, program3)
-  const result = parser.parse()
-  debugger
+function getCodeTemplate(body?: string) {
+  return prettier.format(
+    `const vars = {}\n${typeof body !== 'undefined' ? `${body}\n` : ''}`,
+    prettierFormatOpts
+  )
+}
+
+test.skip(`named nodes without fields or children should be treated as string literals`, () => {
+  const generator = new ProgramScannerGenerator(JavaScriptLanguageDefinition)
+  const result = generator.generate('identifier')
+  assert.strictEqual(result, getCodeTemplate(`// Node: Identifier`))
+})
+
+test.skip(`node with children only`, () => {
+  const generator = new ProgramScannerGenerator(JavaScriptLanguageDefinition)
+  const result = generator.generate('program')
+  assert.strictEqual(result, getCodeTemplate(`// Node: Program`))
+})
+
+test.skip(`node with fields and children`, () => {
+  const generator = new ProgramScannerGenerator(JavaScriptLanguageDefinition)
+  const result = generator.generate('import_statement')
+  assert.strictEqual(result, getCodeTemplate(`// Node: Program`))
+})
+
+test(`node with fields only`, () => {
+  const generator = new ProgramScannerGenerator(JavaScriptLanguageDefinition)
+  const generatedScannerClassCode = generator.generate([
+    'string',
+    'import_statement'
+  ])
+  fs.writeFileSync('src/ProgramScanner.ts', generatedScannerClassCode)
 })
 
 test.run()

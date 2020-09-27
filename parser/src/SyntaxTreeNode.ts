@@ -2,7 +2,7 @@ import { SyntaxNode } from 'tree-sitter'
 import { TreeSitterLanguageNode } from './TreeSitterLanguage'
 
 export interface SyntaxTreeNodeFields {
-  [fieldName: string]: SyntaxTreeNode
+  [fieldName: string]: SyntaxTreeNode[]
 }
 
 export interface SyntaxTreeNodeLiterals {
@@ -10,7 +10,7 @@ export interface SyntaxTreeNodeLiterals {
 }
 
 export interface SyntaxTreeNodeChildren {
-  [nodeType: string]: SyntaxTreeNode
+  [nodeType: string]: SyntaxTreeNode[]
 }
 
 export type SyntaxSourcePoint = {
@@ -86,6 +86,26 @@ export class SyntaxTreeNode {
     this.isMissing = syntaxNode.isMissing()
   }
 
+  where(nodeName: string) {
+    if (this.children[nodeName]) {
+      return [this.children[nodeName]].flat()
+    }
+
+    if (this.fields[nodeName]) {
+      return [this.fields[nodeName]].flat()
+    }
+
+    if (this.literals[nodeName]) {
+      return [this.literals[nodeName]].flat()
+    }
+
+    return []
+  }
+
+  find(nodeName: string) {
+    return this.where(nodeName)[0]
+  }
+
   print(
     {
       printAsField,
@@ -127,18 +147,22 @@ export class SyntaxTreeNode {
       }
     }
 
-    for (const [fieldName, fieldNode] of Object.entries(this.fields)) {
-      fieldNode.print({
-        printAsField: true,
-        fieldName
-      })
+    for (const [fieldName, fieldNodes] of Object.entries(this.fields)) {
+      for (const fieldNode of fieldNodes) {
+        fieldNode.print({
+          printAsField: true,
+          fieldName
+        })
+      }
     }
 
-    for (const [childName, childNode] of Object.entries(this.children)) {
-      childNode.print({
-        printAsField: false,
-        fieldName: ''
-      })
+    for (const [childName, childNodes] of Object.entries(this.children)) {
+      for (const childNode of childNodes) {
+        childNode.print({
+          printAsField: false,
+          fieldName: ''
+        })
+      }
     }
   }
 }

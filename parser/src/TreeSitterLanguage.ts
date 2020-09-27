@@ -3,7 +3,9 @@ import {
   LanguageDefinition,
   LanguageNodeKind,
   DefinitionEntry,
-  DefinitionSupertypeChild
+  DefinitionSupertypeChild,
+  JsonObject,
+  DefinitionChild
 } from './types'
 
 export class TreeSitterLanguage {
@@ -34,7 +36,9 @@ export class TreeSitterLanguageNode {
   public type: string
   public named: boolean
   public fields: Map<string, string[]>
+  public fieldsInfo: Map<string, DefinitionChild>
   public children: string[]
+  public childrenInfo: DefinitionChild | undefined
 
   constructor(node: DefinitionEntry) {
     this.kind = node.subtypes
@@ -43,7 +47,9 @@ export class TreeSitterLanguageNode {
     this.type = this.getTypeName(node)
     this.named = node.named
     this.fields = this.getNodeFields(node)
+    this.fieldsInfo = this.getNodeFieldsInfo(node)
     this.children = this.getNodeChildren(node)
+    this.childrenInfo = this.getNodeChildrenInfo(node)
   }
 
   public static getFormattedName(unformattedName: string): string {
@@ -73,6 +79,20 @@ export class TreeSitterLanguageNode {
     return fields
   }
 
+  private getNodeFieldsInfo(
+    node: DefinitionEntry
+  ): Map<string, DefinitionChild> {
+    const fieldsInfo: Map<string, DefinitionChild> = new Map()
+
+    if (node.fields) {
+      for (const [fieldName, subnode] of Object.entries(node.fields)) {
+        fieldsInfo.set(fieldName, subnode)
+      }
+    }
+
+    return fieldsInfo
+  }
+
   private getNodeChildren(node: DefinitionEntry): string[] {
     return [
       ...(node.subtypes ? node.subtypes.map(x => this.getTypeName(x)) : []),
@@ -80,5 +100,11 @@ export class TreeSitterLanguageNode {
         ? node.children!.types.map(x => this.getTypeName(x))
         : [])
     ]
+  }
+
+  private getNodeChildrenInfo(
+    node: DefinitionEntry
+  ): DefinitionChild | undefined {
+    return node.children
   }
 }

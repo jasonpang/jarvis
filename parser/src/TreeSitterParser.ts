@@ -33,33 +33,27 @@ export class TreeSitterParser {
     this.source = source
   }
 
-  getFormattedNodeName(unformattedOrFormattedNodeName: string) {
-    const isNameUnformatted = unformattedOrFormattedNodeName.includes('_')
-
-    return isNameUnformatted
-      ? TreeSitterLanguageNode.getFormattedName(unformattedOrFormattedNodeName)
-      : unformattedOrFormattedNodeName
+  private getFormattedNodeName(unformattedOrFormattedNodeName: string) {
+    return TreeSitterLanguageNode.getFormattedName(
+      unformattedOrFormattedNodeName
+    )
   }
 
-  get currentNode() {
+  private get currentNode() {
     return this.context.cursor.currentNode
   }
 
-  get currentNodeFormattedName() {
+  private get currentNodeFormattedName() {
     return this.getFormattedNodeName(this.currentNode.type)
   }
 
-  get currentNodeFieldName(): string {
+  private get currentNodeFieldName(): string {
     return (this.context.cursor as any).currentFieldName as string
   }
 
   parse() {
     this.tree = this.internalParser.parse(this.source, this.prevTree)
     this.prevTree = this.tree
-
-    if (!this.tree) {
-      return console.error('Unable to parse tree.')
-    }
 
     this.context = {
       cursor: this.tree.walk(),
@@ -84,18 +78,34 @@ export class TreeSitterParser {
       const current = this.context.node
       const nodeName = this.currentNodeFormattedName
 
-      if (this.currentNode.isNamed) {
-        current.children[nodeName] = new SyntaxTreeNode(this.currentNode)
-        current.children[nodeName].parent = current
+      if (this.currentNodeFieldName) {
+        const fieldName = this.currentNodeFieldName
 
-        this.context.node = current.children[nodeName]
-        this.context.node.depth = this.context.node.parent.depth + 1
+        const newNode = new SyntaxTreeNode(this.currentNode)
+        newNode.parent = current
+        newNode.depth = current.depth + 1
+
+        current.fields[fieldName] ||= []
+        current.fields[fieldName].push(newNode)
+
+        this.context.node = newNode
       } else {
-        current.literals[nodeName] = new SyntaxTreeNode(this.currentNode)
-        current.literals[nodeName].parent = current
+        if (this.currentNode.isNamed) {
+          const newNode = new SyntaxTreeNode(this.currentNode)
+          newNode.parent = current
+          newNode.depth = current.depth + 1
 
-        this.context.node = current.literals[nodeName]
-        this.context.node.depth = this.context.node.parent.depth + 1
+          current.children[nodeName] ||= []
+          current.children[nodeName].push(newNode)
+
+          this.context.node = newNode
+        } else {
+          current.literals[nodeName] = new SyntaxTreeNode(this.currentNode)
+          current.literals[nodeName].parent = current
+
+          this.context.node = current.literals[nodeName]
+          this.context.node.depth = this.context.node.parent.depth + 1
+        }
       }
       return true
     }
@@ -104,7 +114,7 @@ export class TreeSitterParser {
         /* The entire tree's pre-order traversal is complete */
         return false
       } else {
-        /* Navigated to a parent node after exhausting all sibling nodes */
+        /* Navigated to a parent node after exhausting all sibling nodes*/
         this.context.node = this.context.node.parent
       }
     }
@@ -115,22 +125,30 @@ export class TreeSitterParser {
       const fieldName = this.currentNodeFieldName
 
       const current = this.context.node
-      current.fields[fieldName] = new SyntaxTreeNode(this.currentNode)
-      current.fields[fieldName].parent = current
 
-      this.context.node = current.fields[fieldName]
-      this.context.node.depth = this.context.node.parent.depth + 1
+      const newNode = new SyntaxTreeNode(this.currentNode)
+      newNode.parent = current
+      newNode.depth = current.depth + 1
+
+      current.fields[fieldName] ||= []
+      current.fields[fieldName].push(newNode)
+
+      this.context.node = newNode
     } else {
       if (this.currentNode.isNamed) {
         this.context.node = this.context.node.parent
-        const nodeName = this.currentNodeFormattedName
 
         const current = this.context.node
-        current.children[nodeName] = new SyntaxTreeNode(this.currentNode)
-        current.children[nodeName].parent = current
+        const nodeName = this.currentNodeFormattedName
 
-        this.context.node = current.children[nodeName]
-        this.context.node.depth = this.context.node.parent.depth + 1
+        const newNode = new SyntaxTreeNode(this.currentNode)
+        newNode.parent = current
+        newNode.depth = current.depth + 1
+
+        current.children[nodeName] ||= []
+        current.children[nodeName].push(newNode)
+
+        this.context.node = newNode
       } else {
         this.context.node = this.context.node.parent
         const nodeName = this.currentNodeFormattedName

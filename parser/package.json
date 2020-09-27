@@ -5,8 +5,14 @@
   "license": "MIT",
   "dependencies": {
     "@types/baretest": "^2.0.0",
+    "@types/humps": "^2.0.0",
+    "@types/lodash.clonedeep": "^4.5.6",
     "@types/node": "^14.11.2",
+    "@types/prettier": "^2.1.1",
     "baretest": "^2.0.0",
+    "humps": "^2.0.1",
+    "lodash.clonedeep": "^4.5.0",
+    "prettier": "^2.1.2",
     "tree-sitter": "^0.16.2",
     "tree-sitter-javascript": "file:../../tree-sitter-javascript",
     "web-tree-sitter": "^0.16.4"
@@ -15,6 +21,7 @@
     "watch": "tsc -watch -p ./",
     "server": "nodemon -x 'clear;node' --watch out out/index.js",
     "test": "nodemon -x 'clear;node' --watch out out/test/index.js",
-    "test/debug": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out out/test/index.js"
+    "test/debug": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out out/test/index.js",
+    "test/debug/no-break": "nodemon -x 'clear;node --enable-source-maps --inspect --stack-size=100' --watch out out/test/index.js"
   }
 }
