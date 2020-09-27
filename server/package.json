@@ -15,8 +15,8 @@
   },
   "scripts": {
     "watch": "tsc -watch -p ./",
-    "server": "nodemon -x 'clear;node' --watch out out/src/index.js",
-    "test": "nodemon -x 'clear;node' --watch out out/test/index.js"
+    "server": "nodemon -x 'clear;node --enable-source-maps' --watch out out/src/index.js",
+    "test": "nodemon -x 'clear;node --enable-source-maps' --watch out out/test/index.js"
   },
   "dependencies": {
     "@metarhia/jstp": "^2.3.0",

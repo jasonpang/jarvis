@@ -49,11 +49,20 @@ export class Program {
       .map(key => (context.vars as any)[key])
   }
 
-  updateSource(delta: SourceEdit) {
-    this.parser.updateSource(delta)
+  updateSource(deltas: SourceEdit[], newSource: string) {
+    for (const delta of deltas) {
+      this.parser.edit(delta)
+    }
+    this.parser.setSource(newSource)
+    console.log('Updating deltas and setting new source code...', deltas)
   }
 
   scan() {
+    this.tree = this.parser.parse()
+    this.imports = []
+    this.exports = []
+    console.log('Reparsing...:')
+
     for (const [nodeName, nodes] of Object.entries(this.tree.children)) {
       switch (nodeName) {
         case 'ImportStatement': {

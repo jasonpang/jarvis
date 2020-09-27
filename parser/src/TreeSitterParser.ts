@@ -41,9 +41,8 @@ export class TreeSitterParser {
     this.language = new TreeSitterLanguage(languageJson)
   }
 
-  updateSource(changedRanges: SourceEdit) {
+  edit(changedRanges: SourceEdit) {
     this.tree?.edit(changedRanges)
-    this.parse()
   }
 
   setSource(source: string) {

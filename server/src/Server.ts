@@ -53,20 +53,23 @@ export default class Server {
             return
           }
 
-          const old = trees[edit.document.uri.toString()]
+          let program = trees[edit.document.uri.toString()]
 
-          if (old) {
-            for (const delta of deltas) {
-              old.updateSource(delta)
-            }
+          if (program) {
+            program.updateSource(deltas, fullText)
+            program.scan()
+          } else {
+            program = new Program(fullText)
+            trees[edit.document.uri.toString()] = program
           }
 
-          const program = new Program(fullText) // TODO don't use getText, use Parser.Input
-          trees[edit.document.uri.toString()] = program
-          console.clear()
+          // console.clear()
           console.log(
             '[vscode.onDidChangeTextDocument]',
-            inspect(program.imports, inspectOpts)
+            inspect(
+              program?.imports[program.imports.length - 1]?.source[0][0],
+              inspectOpts
+            )
           )
         },
         onDidCloseTextDocument: (connection: any, data: any, callback: any) => {
