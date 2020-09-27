@@ -57,14 +57,14 @@ export class ProgramScannerGenerator {
   }
 
   private getCodeTemplateBodyForNodeScanner(context: ConstructContext): string {
-    const code = []
+    const code: string[] = []
     const nodeName = this.getName(context.path[context.path.length - 1])
     const nodeDefinition = this.language.definition.find(
       x => this.getName(x.type).formatted === nodeName.formatted
     )
 
     if (!nodeDefinition) {
-      return ''
+      return code.join('\n')
     }
 
     const isSkippableNode = !nodeDefinition.named
@@ -79,49 +79,69 @@ export class ProgramScannerGenerator {
       return ''
     }
 
-    code.push(this.getCodeForComment(`Node: ${nodeName.formatted}`))
+    code.push(`/* [Node] ${nodeName.formatted} */\n`)
 
     if (isLiteralNodeKind) {
       code.push(`const pathVarName = context.path
         .join('.')`)
-      code.push(`context.vars[pathVarName] = context.node.text`)
+      code.push(`context.vars[pathVarName] ||= []`)
+      code.push(`context.vars[pathVarName].push(context.node.text)`)
+      return code.join('\n')
     }
 
     for (const [
       _fieldName,
-      _fieldNodeTypeNames
-    ] of nodeDefinition.fields.entries()) {
+      _fieldNodeInfos
+    ] of nodeDefinition.fieldsInfo.entries()) {
       const fieldName = this.getName(_fieldName)
 
-      for (const _fieldNodeTypeName of _fieldNodeTypeNames) {
+      for (const _fieldNodeTypeName of _fieldNodeInfos.types
+        .filter(x => x.named)
+        .map(x => x.type)) {
         const fieldNodeTypeName = this.getName(_fieldNodeTypeName)
 
-        code.push(
-          this.getCodeForComment(
-            `Field: ${fieldName.camelized}: ${fieldNodeTypeName.formatted}`
-          )
-        )
+        code.push(`
+        /* [Field] ${fieldName.camelized}: ${fieldNodeTypeName.formatted} */
+        if (context.node.fields['${fieldName.camelized}']) {
+            for (const fieldNode of context.node.fields['${fieldName.camelized}']) {
+                context.node = fieldNode
+                context.path.push(fieldNode.fieldName ? '${fieldName.camelized}' : '${fieldNodeTypeName.formatted}')
 
-        context.path.push(fieldNodeTypeName.formatted)
+                // Get the field's value
+                this.scan${fieldNodeTypeName.formatted}Node(context)
 
-        code.push(
-          this.getCodeForIfStatement(
-            `context.node.fields['${fieldName.formatted}']`,
-            this.getCodeForLoopForOf(
-              'fieldNode',
-              `context.node.fields['${fieldName.formatted}']`,
-              this.getCodeForIfStatement(
-                `fieldNode.type === '${fieldNodeTypeName.formatted}'`,
-                `const contextClone = cloneDeep(context)
-                 contextClone.path.push('${fieldNodeTypeName.formatted}');
-                this.scan${fieldNodeTypeName.formatted}Node(contextClone)`,
-                ''
-              )
-            ),
-            ''
-          )
-        )
+                // Go back to parent
+                context.node = context.node.parent
+                context.path.pop()
+            }
+        }
+        `)
       }
+    }
+
+    const children =
+      nodeDefinition.childrenInfo?.types
+        .filter(x => x.named)
+        .map(x => x.type) || []
+    for (const _childNodeName of children) {
+      const childNodeName = this.getName(_childNodeName)
+
+      code.push(`
+        /* [Child] ${childNodeName.formatted} */
+        if (context.node.children['${childNodeName.formatted}']) {
+            for (const subChildNode of context.node.children['${childNodeName.formatted}']) {
+                context.node = subChildNode
+                context.path.push('${childNodeName.formatted}')
+
+                // Get the field's value
+                this.scan${childNodeName.formatted}Node(context)
+
+                // Go back to parent
+                context.node = context.node.parent
+                context.path.pop()
+            }
+        }
+        `)
     }
 
     return code.join('\n')
@@ -135,29 +155,12 @@ export class ProgramScannerGenerator {
     }\n`
   }
 
-  private getCodeForComment(comment: string) {
-    return `// ${comment}`
-  }
-
-  private getCodeForLoopForOf(left: string, right: string, body: string) {
-    return `
-    for (const ${left} of ${right}) {
-        ${body}
-    }`.trimStart()
-  }
-
-  private getCodeForIfStatement(
-    condition: string,
-    consequence: string,
-    alternative: string
-  ) {
-    return `if (${condition}) { ${consequence} }${
-      alternative ? `else { ${alternative} }` : ''
-    }\n`
-  }
-
   generate(nodeNames: string[]) {
     const code = `
+    /* This is an auto-generated file. Last Updated: ${new Date().toLocaleString(
+      'en-US'
+    )} */
+
     import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
     import { SyntaxType } from '../tree-sitter-javascript'
     import { SyntaxTreeNode } from './SyntaxTreeNode'
@@ -166,11 +169,10 @@ export class ProgramScannerGenerator {
     import { ConstructContext } from './ProgramScannerGenerator'
 
     export class ProgramScanner {
-        ${nodeNames.map(x => this.generateSingle(x)).join('\n')}
+        ${nodeNames.map(x => this.generateScannerCodeForNodeName(x)).join('\n')}
     }`
 
-    // console.log()
-    // console.log(code)
+    // console.log(code)dd
 
     const result = prettier.format(code, prettierFormatOpts)
 
@@ -179,7 +181,7 @@ export class ProgramScannerGenerator {
     return result
   }
 
-  private generateSingle(nodeName: string) {
+  private generateScannerCodeForNodeName(nodeName: string) {
     this.nodeName = this.getName(nodeName).formatted
     this.context = {
       path: [this.nodeName],
@@ -193,11 +195,4 @@ export class ProgramScannerGenerator {
       this.getCodeTemplateBodyForNodeScanner(this.context)
     )
   }
-}
-
-function tabs(count: number) {
-  let i = 0,
-    tabs = ''
-  while (i++ < count) tabs += '\t'
-  return tabs
 }

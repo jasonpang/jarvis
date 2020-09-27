@@ -7,6 +7,7 @@ import { ProgramScanner } from './ProgramScanner'
 
 export interface ImportMap {
   default: string
+  namespace: string
   named: string[]
   source: string
 }
@@ -40,12 +41,31 @@ export class Program {
       switch (nodeName) {
         case 'ImportStatement':
           for (const node of nodes) {
-            this.scanner.scanImportStatementNode({
-              path: [],
+            const context = {
+              path: [nodeName],
               node,
               vars: {},
               code: ''
+            }
+            this.scanner.scanImportStatementNode(context)
+
+            this.imports.push({
+              namespace: Object.keys(context.vars)
+                .filter(x => x.includes('NamespaceImport.Identifier'))
+                .map(key => (context.vars as any)[key])[0],
+              default: Object.keys(context.vars)
+                .filter(x => x.includes('ImportClause.Identifier'))
+                .map(key => (context.vars as any)[key])[0],
+              named: Object.keys(context.vars)
+                .filter(
+                  x =>
+                    x.includes('ImportSpecifier.name') ||
+                    x.includes('ImportSpecifier.alias')
+                )
+                .map(key => (context.vars as any)[key]),
+              source: (context.vars as any)['ImportStatement.source']
             })
+            console.log(`ImportStatement Scan (${node.text}):`, context.vars)
           }
       }
     }

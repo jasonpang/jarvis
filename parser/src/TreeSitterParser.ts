@@ -82,6 +82,7 @@ export class TreeSitterParser {
         const fieldName = this.currentNodeFieldName
 
         const newNode = new SyntaxTreeNode(this.currentNode)
+        newNode.fieldName = fieldName
         newNode.parent = current
         newNode.depth = current.depth + 1
 
@@ -127,6 +128,7 @@ export class TreeSitterParser {
       const current = this.context.node
 
       const newNode = new SyntaxTreeNode(this.currentNode)
+      newNode.fieldName = fieldName
       newNode.parent = current
       newNode.depth = current.depth + 1
 

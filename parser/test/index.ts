@@ -1,2 +1,2 @@
 // export * from './playground'
-export * from './ProgramScannerGenerator'
+export * from './scanner'
