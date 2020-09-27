@@ -24,6 +24,7 @@
     "test/debug": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out out/test/index.js",
     "test/debug/no-break": "nodemon -x 'clear;node --enable-source-maps --inspect --stack-size=100' --watch out out/test/index.js",
     "test/scanner": "nodemon -x 'clear;node --enable-source-maps --inspect-brk --stack-size=100' --watch out/src/ProgramScanner.js out/test/index.js",
-    "scripts/generate-scanner": "nodemon -x 'clear;node --enable-source-maps --stack-size=100' --watch out/src out/test/scripts/generateProgramScanner.js"
+    "scripts/generate-scanner": "nodemon -x 'clear;node --enable-source-maps --stack-size=100' --watch out/src out/test/scripts/generateProgramScanner.js",
+    "scripts/generate-scanner/once": "clear;node --enable-source-maps --stack-size=100 out/test/scripts/generateProgramScanner.js"
   }
 }

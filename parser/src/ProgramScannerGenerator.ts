@@ -105,10 +105,13 @@ export class ProgramScannerGenerator {
         if (context.node.fields['${fieldName.camelized}']) {
             for (const fieldNode of context.node.fields['${fieldName.camelized}']) {
                 context.node = fieldNode
-                context.path.push(fieldNode.fieldName ? '${fieldName.camelized}' : '${fieldNodeTypeName.formatted}')
+
+                const specificFieldNodeTypeName = fieldNode.type
+                context.path.push(fieldNode.fieldName ? '${fieldName.camelized}' : specificFieldNodeTypeName)
 
                 // Get the field's value
-                this.scan${fieldNodeTypeName.formatted}Node(context)
+                // @ts-ignore
+                this[\`scan\${specificFieldNodeTypeName}Node\`](context)
 
                 // Go back to parent
                 context.node = context.node.parent

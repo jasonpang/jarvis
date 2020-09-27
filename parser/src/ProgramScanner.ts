@@ -1,4 +1,4 @@
-/* This is an auto-generated file. Last Updated: 9/26/2020, 5:54:32 PM */
+/* This is an auto-generated file. Last Updated: 9/26/2020, 6:13:51 PM */
 
 import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
 import { SyntaxType } from '../tree-sitter-javascript'
@@ -133,10 +133,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -148,10 +153,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -163,10 +173,15 @@ export class ProgramScanner {
     if (context.node.fields['parameter']) {
       for (const fieldNode of context.node.fields['parameter']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'parameter' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'parameter' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -178,12 +193,15 @@ export class ProgramScanner {
     if (context.node.fields['parameters']) {
       for (const fieldNode of context.node.fields['parameters']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameters' : 'FormalParameters'
+          fieldNode.fieldName ? 'parameters' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanFormalParametersNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -199,10 +217,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'DestructuringPattern')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -214,10 +237,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -229,10 +257,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'MemberExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanMemberExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -244,12 +277,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'left' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -261,10 +297,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'SubscriptExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSubscriptExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -276,10 +317,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -295,10 +341,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'DestructuringPattern')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -310,12 +361,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'left' : 'ShorthandPropertyIdentifier'
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanShorthandPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -327,10 +381,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -346,10 +405,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -361,10 +425,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'MemberExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanMemberExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -376,12 +445,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'left' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -393,10 +465,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'SubscriptExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSubscriptExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -408,10 +485,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -446,10 +528,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -461,10 +548,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -480,10 +572,15 @@ export class ProgramScanner {
     if (context.node.fields['label']) {
       for (const fieldNode of context.node.fields['label']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'label' : 'StatementIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'label' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -499,10 +596,15 @@ export class ProgramScanner {
     if (context.node.fields['arguments']) {
       for (const fieldNode of context.node.fields['arguments']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'arguments' : 'Arguments')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'arguments' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanArgumentsNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -514,10 +616,15 @@ export class ProgramScanner {
     if (context.node.fields['arguments']) {
       for (const fieldNode of context.node.fields['arguments']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'arguments' : 'TemplateString')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'arguments' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanTemplateStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -529,10 +636,15 @@ export class ProgramScanner {
     if (context.node.fields['function']) {
       for (const fieldNode of context.node.fields['function']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'function' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'function' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -544,10 +656,15 @@ export class ProgramScanner {
     if (context.node.fields['function']) {
       for (const fieldNode of context.node.fields['function']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'function' : 'Super')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'function' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSuperNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -563,10 +680,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -578,12 +700,15 @@ export class ProgramScanner {
     if (context.node.fields['parameter']) {
       for (const fieldNode of context.node.fields['parameter']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameter' : 'DestructuringPattern'
+          fieldNode.fieldName ? 'parameter' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -595,10 +720,15 @@ export class ProgramScanner {
     if (context.node.fields['parameter']) {
       for (const fieldNode of context.node.fields['parameter']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'parameter' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'parameter' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -614,10 +744,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'ClassBody')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanClassBodyNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -629,10 +764,15 @@ export class ProgramScanner {
     if (context.node.fields['decorator']) {
       for (const fieldNode of context.node.fields['decorator']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'decorator' : 'Decorator')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'decorator' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDecoratorNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -644,10 +784,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -678,10 +823,15 @@ export class ProgramScanner {
     if (context.node.fields['member']) {
       for (const fieldNode of context.node.fields['member']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'member' : 'MethodDefinition')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'member' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanMethodDefinitionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -693,12 +843,15 @@ export class ProgramScanner {
     if (context.node.fields['member']) {
       for (const fieldNode of context.node.fields['member']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'member' : 'PublicFieldDefinition'
+          fieldNode.fieldName ? 'member' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanPublicFieldDefinitionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -714,10 +867,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'ClassBody')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanClassBodyNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -729,10 +887,15 @@ export class ProgramScanner {
     if (context.node.fields['decorator']) {
       for (const fieldNode of context.node.fields['decorator']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'decorator' : 'Decorator')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'decorator' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDecoratorNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -744,10 +907,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -816,10 +984,15 @@ export class ProgramScanner {
     if (context.node.fields['label']) {
       for (const fieldNode of context.node.fields['label']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'label' : 'StatementIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'label' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -892,10 +1065,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -907,12 +1085,15 @@ export class ProgramScanner {
     if (context.node.fields['condition']) {
       for (const fieldNode of context.node.fields['condition']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'condition' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'condition' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -955,10 +1136,15 @@ export class ProgramScanner {
     if (context.node.fields['alias']) {
       for (const fieldNode of context.node.fields['alias']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'alias' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'alias' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -970,10 +1156,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -989,10 +1180,16 @@ export class ProgramScanner {
     if (context.node.fields['declaration']) {
       for (const fieldNode of context.node.fields['declaration']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'declaration' : 'Declaration')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'declaration' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDeclarationNode(context)
+        // @ts-ignore
+        debugger
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1004,10 +1201,15 @@ export class ProgramScanner {
     if (context.node.fields['decorator']) {
       for (const fieldNode of context.node.fields['decorator']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'decorator' : 'Decorator')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'decorator' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDecoratorNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1019,10 +1221,15 @@ export class ProgramScanner {
     if (context.node.fields['source']) {
       for (const fieldNode of context.node.fields['source']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'source' : 'String')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'source' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1034,10 +1241,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'value' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1102,10 +1314,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1121,10 +1338,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1136,10 +1358,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'DestructuringPattern')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1151,10 +1378,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1166,10 +1398,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'MemberExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanMemberExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1181,12 +1418,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'left' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1198,10 +1438,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'SubscriptExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSubscriptExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1213,10 +1458,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1228,10 +1478,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'SequenceExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1247,10 +1502,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1262,10 +1522,15 @@ export class ProgramScanner {
     if (context.node.fields['condition']) {
       for (const fieldNode of context.node.fields['condition']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'condition' : 'EmptyStatement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'condition' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanEmptyStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1277,12 +1542,15 @@ export class ProgramScanner {
     if (context.node.fields['condition']) {
       for (const fieldNode of context.node.fields['condition']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'condition' : 'ExpressionStatement'
+          fieldNode.fieldName ? 'condition' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanExpressionStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1294,10 +1562,15 @@ export class ProgramScanner {
     if (context.node.fields['increment']) {
       for (const fieldNode of context.node.fields['increment']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'increment' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'increment' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1309,12 +1582,15 @@ export class ProgramScanner {
     if (context.node.fields['increment']) {
       for (const fieldNode of context.node.fields['increment']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'increment' : 'SequenceExpression'
+          fieldNode.fieldName ? 'increment' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1326,12 +1602,15 @@ export class ProgramScanner {
     if (context.node.fields['initializer']) {
       for (const fieldNode of context.node.fields['initializer']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'initializer' : 'EmptyStatement'
+          fieldNode.fieldName ? 'initializer' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanEmptyStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1343,12 +1622,15 @@ export class ProgramScanner {
     if (context.node.fields['initializer']) {
       for (const fieldNode of context.node.fields['initializer']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'initializer' : 'ExpressionStatement'
+          fieldNode.fieldName ? 'initializer' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanExpressionStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1360,12 +1642,15 @@ export class ProgramScanner {
     if (context.node.fields['initializer']) {
       for (const fieldNode of context.node.fields['initializer']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'initializer' : 'LexicalDeclaration'
+          fieldNode.fieldName ? 'initializer' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanLexicalDeclarationNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1377,12 +1662,15 @@ export class ProgramScanner {
     if (context.node.fields['initializer']) {
       for (const fieldNode of context.node.fields['initializer']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'initializer' : 'VariableDeclaration'
+          fieldNode.fieldName ? 'initializer' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanVariableDeclarationNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1464,10 +1752,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1479,10 +1772,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1494,12 +1792,15 @@ export class ProgramScanner {
     if (context.node.fields['parameters']) {
       for (const fieldNode of context.node.fields['parameters']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameters' : 'FormalParameters'
+          fieldNode.fieldName ? 'parameters' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanFormalParametersNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1515,10 +1816,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1530,10 +1836,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1545,12 +1856,15 @@ export class ProgramScanner {
     if (context.node.fields['parameters']) {
       for (const fieldNode of context.node.fields['parameters']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameters' : 'FormalParameters'
+          fieldNode.fieldName ? 'parameters' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanFormalParametersNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1566,10 +1880,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1581,10 +1900,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1596,12 +1920,15 @@ export class ProgramScanner {
     if (context.node.fields['parameters']) {
       for (const fieldNode of context.node.fields['parameters']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameters' : 'FormalParameters'
+          fieldNode.fieldName ? 'parameters' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanFormalParametersNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1617,10 +1944,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1632,10 +1964,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1647,12 +1984,15 @@ export class ProgramScanner {
     if (context.node.fields['parameters']) {
       for (const fieldNode of context.node.fields['parameters']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameters' : 'FormalParameters'
+          fieldNode.fieldName ? 'parameters' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanFormalParametersNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1668,10 +2008,15 @@ export class ProgramScanner {
     if (context.node.fields['alternative']) {
       for (const fieldNode of context.node.fields['alternative']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'alternative' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'alternative' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1683,12 +2028,15 @@ export class ProgramScanner {
     if (context.node.fields['condition']) {
       for (const fieldNode of context.node.fields['condition']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'condition' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'condition' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1700,10 +2048,15 @@ export class ProgramScanner {
     if (context.node.fields['consequence']) {
       for (const fieldNode of context.node.fields['consequence']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'consequence' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'consequence' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1776,10 +2129,15 @@ export class ProgramScanner {
     if (context.node.fields['alias']) {
       for (const fieldNode of context.node.fields['alias']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'alias' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'alias' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1791,10 +2149,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1810,10 +2173,15 @@ export class ProgramScanner {
     if (context.node.fields['source']) {
       for (const fieldNode of context.node.fields['source']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'source' : 'String')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'source' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1955,10 +2323,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1970,10 +2343,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'JsxNamespaceName')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxNamespaceNameNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1985,10 +2363,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'NestedIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNestedIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2004,12 +2387,15 @@ export class ProgramScanner {
     if (context.node.fields['closeTag']) {
       for (const fieldNode of context.node.fields['closeTag']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'closeTag' : 'JsxClosingElement'
+          fieldNode.fieldName ? 'closeTag' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanJsxClosingElementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2021,10 +2407,15 @@ export class ProgramScanner {
     if (context.node.fields['openTag']) {
       for (const fieldNode of context.node.fields['openTag']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'openTag' : 'JsxOpeningElement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'openTag' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxOpeningElementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2236,10 +2627,15 @@ export class ProgramScanner {
     if (context.node.fields['attribute']) {
       for (const fieldNode of context.node.fields['attribute']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'attribute' : 'JsxAttribute')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'attribute' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxAttributeNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2251,10 +2647,15 @@ export class ProgramScanner {
     if (context.node.fields['attribute']) {
       for (const fieldNode of context.node.fields['attribute']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'attribute' : 'JsxExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'attribute' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2266,10 +2667,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2281,10 +2687,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'JsxNamespaceName')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxNamespaceNameNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2296,10 +2707,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'NestedIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNestedIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2315,10 +2731,15 @@ export class ProgramScanner {
     if (context.node.fields['attribute']) {
       for (const fieldNode of context.node.fields['attribute']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'attribute' : 'JsxAttribute')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'attribute' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxAttributeNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2330,10 +2751,15 @@ export class ProgramScanner {
     if (context.node.fields['attribute']) {
       for (const fieldNode of context.node.fields['attribute']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'attribute' : 'JsxExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'attribute' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2345,10 +2771,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2360,10 +2791,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'JsxNamespaceName')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanJsxNamespaceNameNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2375,10 +2811,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'NestedIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNestedIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2394,10 +2835,15 @@ export class ProgramScanner {
     if (context.node.fields['label']) {
       for (const fieldNode of context.node.fields['label']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'label' : 'StatementIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'label' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2447,10 +2893,15 @@ export class ProgramScanner {
     if (context.node.fields['object']) {
       for (const fieldNode of context.node.fields['object']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'object' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'object' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2462,10 +2913,15 @@ export class ProgramScanner {
     if (context.node.fields['object']) {
       for (const fieldNode of context.node.fields['object']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'object' : 'Super')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'object' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSuperNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2477,12 +2933,15 @@ export class ProgramScanner {
     if (context.node.fields['property']) {
       for (const fieldNode of context.node.fields['property']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'property' : 'PropertyIdentifier'
+          fieldNode.fieldName ? 'property' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2506,10 +2965,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2521,10 +2985,15 @@ export class ProgramScanner {
     if (context.node.fields['decorator']) {
       for (const fieldNode of context.node.fields['decorator']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'decorator' : 'Decorator')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'decorator' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDecoratorNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2536,10 +3005,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'ComputedPropertyName')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanComputedPropertyNameNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2551,10 +3025,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Number')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNumberNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2566,10 +3045,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'PropertyIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2581,10 +3065,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'String')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2596,12 +3085,15 @@ export class ProgramScanner {
     if (context.node.fields['parameters']) {
       for (const fieldNode of context.node.fields['parameters']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'parameters' : 'FormalParameters'
+          fieldNode.fieldName ? 'parameters' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanFormalParametersNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2689,10 +3181,15 @@ export class ProgramScanner {
     if (context.node.fields['arguments']) {
       for (const fieldNode of context.node.fields['arguments']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'arguments' : 'Arguments')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'arguments' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanArgumentsNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2704,10 +3201,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Array')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanArrayNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2719,10 +3221,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'ArrowFunction')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanArrowFunctionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2734,10 +3241,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Class')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanClassNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2749,10 +3261,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'False')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanFalseNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2764,10 +3281,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Function')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanFunctionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2779,12 +3301,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'constructor' : 'GeneratorFunction'
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanGeneratorFunctionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2796,10 +3321,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2811,10 +3341,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Import')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanImportNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2826,12 +3361,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'constructor' : 'MemberExpression'
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanMemberExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2843,10 +3381,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'MetaProperty')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanMetaPropertyNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2858,10 +3401,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'NewExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNewExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2873,10 +3421,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Null')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNullNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2888,10 +3441,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Number')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNumberNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2903,10 +3461,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Object')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanObjectNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2918,12 +3481,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'constructor' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2935,10 +3501,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Regex')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanRegexNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2950,10 +3521,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'String')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2965,12 +3541,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'constructor' : 'SubscriptExpression'
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanSubscriptExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2982,12 +3561,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'constructor' : 'TemplateString'
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanTemplateStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2999,10 +3581,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'This')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanThisNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3014,10 +3601,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'True')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanTrueNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3029,10 +3621,15 @@ export class ProgramScanner {
     if (context.node.fields['constructor']) {
       for (const fieldNode of context.node.fields['constructor']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'constructor' : 'Undefined')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'constructor' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanUndefinedNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3210,10 +3807,15 @@ export class ProgramScanner {
     if (context.node.fields['key']) {
       for (const fieldNode of context.node.fields['key']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'key' : 'ComputedPropertyName')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'key' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanComputedPropertyNameNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3225,10 +3827,15 @@ export class ProgramScanner {
     if (context.node.fields['key']) {
       for (const fieldNode of context.node.fields['key']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'key' : 'Number')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'key' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNumberNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3240,10 +3847,15 @@ export class ProgramScanner {
     if (context.node.fields['key']) {
       for (const fieldNode of context.node.fields['key']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'key' : 'PropertyIdentifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'key' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3255,10 +3867,15 @@ export class ProgramScanner {
     if (context.node.fields['key']) {
       for (const fieldNode of context.node.fields['key']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'key' : 'String')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'key' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3270,10 +3887,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'value' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3357,12 +3979,15 @@ export class ProgramScanner {
     if (context.node.fields['property']) {
       for (const fieldNode of context.node.fields['property']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'property' : 'ComputedPropertyName'
+          fieldNode.fieldName ? 'property' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanComputedPropertyNameNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3374,10 +3999,15 @@ export class ProgramScanner {
     if (context.node.fields['property']) {
       for (const fieldNode of context.node.fields['property']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'property' : 'Number')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'property' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanNumberNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3389,12 +4019,15 @@ export class ProgramScanner {
     if (context.node.fields['property']) {
       for (const fieldNode of context.node.fields['property']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'property' : 'PropertyIdentifier'
+          fieldNode.fieldName ? 'property' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3406,10 +4039,15 @@ export class ProgramScanner {
     if (context.node.fields['property']) {
       for (const fieldNode of context.node.fields['property']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'property' : 'String')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'property' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3421,10 +4059,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'value' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3440,10 +4083,15 @@ export class ProgramScanner {
     if (context.node.fields['flags']) {
       for (const fieldNode of context.node.fields['flags']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'flags' : 'RegexFlags')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'flags' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanRegexFlagsNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3455,10 +4103,15 @@ export class ProgramScanner {
     if (context.node.fields['pattern']) {
       for (const fieldNode of context.node.fields['pattern']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'pattern' : 'RegexPattern')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'pattern' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanRegexPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3544,10 +4197,15 @@ export class ProgramScanner {
     if (context.node.fields['left']) {
       for (const fieldNode of context.node.fields['left']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'left' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'left' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3559,10 +4217,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3574,10 +4237,15 @@ export class ProgramScanner {
     if (context.node.fields['right']) {
       for (const fieldNode of context.node.fields['right']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'right' : 'SequenceExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'right' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3639,10 +4307,15 @@ export class ProgramScanner {
     if (context.node.fields['index']) {
       for (const fieldNode of context.node.fields['index']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'index' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'index' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3654,10 +4327,15 @@ export class ProgramScanner {
     if (context.node.fields['index']) {
       for (const fieldNode of context.node.fields['index']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'index' : 'SequenceExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'index' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3669,10 +4347,15 @@ export class ProgramScanner {
     if (context.node.fields['object']) {
       for (const fieldNode of context.node.fields['object']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'object' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'object' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3684,10 +4367,15 @@ export class ProgramScanner {
     if (context.node.fields['object']) {
       for (const fieldNode of context.node.fields['object']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'object' : 'Super')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'object' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSuperNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3737,10 +4425,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'value' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3752,10 +4445,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'value' : 'SequenceExpression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3805,10 +4503,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'SwitchBody')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanSwitchBodyNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3820,12 +4523,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'value' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3911,10 +4617,15 @@ export class ProgramScanner {
     if (context.node.fields['alternative']) {
       for (const fieldNode of context.node.fields['alternative']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'alternative' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'alternative' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3926,10 +4637,15 @@ export class ProgramScanner {
     if (context.node.fields['condition']) {
       for (const fieldNode of context.node.fields['condition']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'condition' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'condition' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3941,10 +4657,15 @@ export class ProgramScanner {
     if (context.node.fields['consequence']) {
       for (const fieldNode of context.node.fields['consequence']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'consequence' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'consequence' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3994,10 +4715,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'StatementBlock')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementBlockNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4009,10 +4735,15 @@ export class ProgramScanner {
     if (context.node.fields['finalizer']) {
       for (const fieldNode of context.node.fields['finalizer']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'finalizer' : 'FinallyClause')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'finalizer' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanFinallyClauseNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4024,10 +4755,15 @@ export class ProgramScanner {
     if (context.node.fields['handler']) {
       for (const fieldNode of context.node.fields['handler']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'handler' : 'CatchClause')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'handler' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanCatchClauseNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4043,10 +4779,15 @@ export class ProgramScanner {
     if (context.node.fields['argument']) {
       for (const fieldNode of context.node.fields['argument']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'argument' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'argument' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4062,10 +4803,15 @@ export class ProgramScanner {
     if (context.node.fields['argument']) {
       for (const fieldNode of context.node.fields['argument']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'argument' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'argument' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4100,10 +4846,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'DestructuringPattern')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4115,10 +4866,15 @@ export class ProgramScanner {
     if (context.node.fields['name']) {
       for (const fieldNode of context.node.fields['name']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'name' : 'Identifier')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'name' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4130,10 +4886,15 @@ export class ProgramScanner {
     if (context.node.fields['value']) {
       for (const fieldNode of context.node.fields['value']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'value' : 'Expression')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'value' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4149,10 +4910,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4164,12 +4930,15 @@ export class ProgramScanner {
     if (context.node.fields['condition']) {
       for (const fieldNode of context.node.fields['condition']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'condition' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'condition' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4185,10 +4954,15 @@ export class ProgramScanner {
     if (context.node.fields['body']) {
       for (const fieldNode of context.node.fields['body']) {
         context.node = fieldNode
-        context.path.push(fieldNode.fieldName ? 'body' : 'Statement')
+
+        const specificFieldNodeTypeName = fieldNode.type
+        context.path.push(
+          fieldNode.fieldName ? 'body' : specificFieldNodeTypeName
+        )
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4200,12 +4974,15 @@ export class ProgramScanner {
     if (context.node.fields['object']) {
       for (const fieldNode of context.node.fields['object']) {
         context.node = fieldNode
+
+        const specificFieldNodeTypeName = fieldNode.type
         context.path.push(
-          fieldNode.fieldName ? 'object' : 'ParenthesizedExpression'
+          fieldNode.fieldName ? 'object' : specificFieldNodeTypeName
         )
 
         // Get the field's value
-        this.scanParenthesizedExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
