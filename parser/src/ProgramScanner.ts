@@ -1,4 +1,4 @@
-/* This is an auto-generated file. Last Updated: 9/26/2020, 6:13:51 PM */
+/* This is an auto-generated file. Last Updated: 9/26/2020, 6:40:36 PM */
 
 import JavaScriptLanguageDefinition from '../src/assets/javascript-lang-node-types.json'
 import { SyntaxType } from '../tree-sitter-javascript'
@@ -8,22 +8,6 @@ import cloneDeep from 'lodash.clonedeep'
 import { ConstructContext } from './ProgramScannerGenerator'
 
 export class ProgramScanner {
-  scanDeclarationNode(context: ConstructContext) {
-    /* [Node] Declaration */
-  }
-
-  scanDestructuringPatternNode(context: ConstructContext) {
-    /* [Node] DestructuringPattern */
-  }
-
-  scanExpressionNode(context: ConstructContext) {
-    /* [Node] Expression */
-  }
-
-  scanStatementNode(context: ConstructContext) {
-    /* [Node] Statement */
-  }
-
   scanArgumentsNode(context: ConstructContext) {
     /* [Node] Arguments */
 
@@ -31,10 +15,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -46,10 +33,13 @@ export class ProgramScanner {
     if (context.node.children['SpreadElement']) {
       for (const subChildNode of context.node.children['SpreadElement']) {
         context.node = subChildNode
-        context.path.push('SpreadElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSpreadElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -65,10 +55,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -80,10 +73,13 @@ export class ProgramScanner {
     if (context.node.children['SpreadElement']) {
       for (const subChildNode of context.node.children['SpreadElement']) {
         context.node = subChildNode
-        context.path.push('SpreadElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSpreadElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -99,10 +95,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -114,10 +113,13 @@ export class ProgramScanner {
     if (context.node.children['SpreadElement']) {
       for (const subChildNode of context.node.children['SpreadElement']) {
         context.node = subChildNode
-        context.path.push('SpreadElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSpreadElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -509,10 +511,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -804,10 +809,13 @@ export class ProgramScanner {
     if (context.node.children['ClassHeritage']) {
       for (const subChildNode of context.node.children['ClassHeritage']) {
         context.node = subChildNode
-        context.path.push('ClassHeritage')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanClassHeritageNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -927,10 +935,13 @@ export class ProgramScanner {
     if (context.node.children['ClassHeritage']) {
       for (const subChildNode of context.node.children['ClassHeritage']) {
         context.node = subChildNode
-        context.path.push('ClassHeritage')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanClassHeritageNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -946,10 +957,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -965,10 +979,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1016,10 +1033,13 @@ export class ProgramScanner {
     if (context.node.children['CallExpression']) {
       for (const subChildNode of context.node.children['CallExpression']) {
         context.node = subChildNode
-        context.path.push('CallExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanCallExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1031,10 +1051,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1046,10 +1069,13 @@ export class ProgramScanner {
     if (context.node.children['MemberExpression']) {
       for (const subChildNode of context.node.children['MemberExpression']) {
         context.node = subChildNode
-        context.path.push('MemberExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanMemberExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1117,10 +1143,13 @@ export class ProgramScanner {
     if (context.node.children['ExportSpecifier']) {
       for (const subChildNode of context.node.children['ExportSpecifier']) {
         context.node = subChildNode
-        context.path.push('ExportSpecifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExportSpecifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1188,7 +1217,6 @@ export class ProgramScanner {
 
         // Get the field's value
         // @ts-ignore
-        debugger
         this[`scan${specificFieldNodeTypeName}Node`](context)
 
         // Go back to parent
@@ -1261,10 +1289,13 @@ export class ProgramScanner {
     if (context.node.children['ExportClause']) {
       for (const subChildNode of context.node.children['ExportClause']) {
         context.node = subChildNode
-        context.path.push('ExportClause')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExportClauseNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1280,10 +1311,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1295,10 +1329,13 @@ export class ProgramScanner {
     if (context.node.children['SequenceExpression']) {
       for (const subChildNode of context.node.children['SequenceExpression']) {
         context.node = subChildNode
-        context.path.push('SequenceExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1688,10 +1725,13 @@ export class ProgramScanner {
         'DestructuringPattern'
       ]) {
         context.node = subChildNode
-        context.path.push('DestructuringPattern')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1703,10 +1743,13 @@ export class ProgramScanner {
     if (context.node.children['AssignmentPattern']) {
       for (const subChildNode of context.node.children['AssignmentPattern']) {
         context.node = subChildNode
-        context.path.push('AssignmentPattern')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanAssignmentPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1718,10 +1761,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -1733,10 +1779,13 @@ export class ProgramScanner {
     if (context.node.children['RestParameter']) {
       for (const subChildNode of context.node.children['RestParameter']) {
         context.node = subChildNode
-        context.path.push('RestParameter')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanRestParameterNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2080,10 +2129,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2095,10 +2147,13 @@ export class ProgramScanner {
     if (context.node.children['NamedImports']) {
       for (const subChildNode of context.node.children['NamedImports']) {
         context.node = subChildNode
-        context.path.push('NamedImports')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanNamedImportsNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2110,10 +2165,13 @@ export class ProgramScanner {
     if (context.node.children['NamespaceImport']) {
       for (const subChildNode of context.node.children['NamespaceImport']) {
         context.node = subChildNode
-        context.path.push('NamespaceImport')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanNamespaceImportNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2193,10 +2251,13 @@ export class ProgramScanner {
     if (context.node.children['ImportClause']) {
       for (const subChildNode of context.node.children['ImportClause']) {
         context.node = subChildNode
-        context.path.push('ImportClause')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanImportClauseNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2212,10 +2273,13 @@ export class ProgramScanner {
     if (context.node.children['JsxElement']) {
       for (const subChildNode of context.node.children['JsxElement']) {
         context.node = subChildNode
-        context.path.push('JsxElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2227,10 +2291,13 @@ export class ProgramScanner {
     if (context.node.children['JsxExpression']) {
       for (const subChildNode of context.node.children['JsxExpression']) {
         context.node = subChildNode
-        context.path.push('JsxExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2242,10 +2309,13 @@ export class ProgramScanner {
     if (context.node.children['JsxFragment']) {
       for (const subChildNode of context.node.children['JsxFragment']) {
         context.node = subChildNode
-        context.path.push('JsxFragment')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxFragmentNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2257,10 +2327,13 @@ export class ProgramScanner {
     if (context.node.children['JsxNamespaceName']) {
       for (const subChildNode of context.node.children['JsxNamespaceName']) {
         context.node = subChildNode
-        context.path.push('JsxNamespaceName')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxNamespaceNameNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2274,10 +2347,13 @@ export class ProgramScanner {
         'JsxSelfClosingElement'
       ]) {
         context.node = subChildNode
-        context.path.push('JsxSelfClosingElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxSelfClosingElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2289,10 +2365,13 @@ export class ProgramScanner {
     if (context.node.children['PropertyIdentifier']) {
       for (const subChildNode of context.node.children['PropertyIdentifier']) {
         context.node = subChildNode
-        context.path.push('PropertyIdentifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2304,10 +2383,13 @@ export class ProgramScanner {
     if (context.node.children['String']) {
       for (const subChildNode of context.node.children['String']) {
         context.node = subChildNode
-        context.path.push('String')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanStringNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2427,10 +2509,13 @@ export class ProgramScanner {
     if (context.node.children['JsxElement']) {
       for (const subChildNode of context.node.children['JsxElement']) {
         context.node = subChildNode
-        context.path.push('JsxElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2442,10 +2527,13 @@ export class ProgramScanner {
     if (context.node.children['JsxExpression']) {
       for (const subChildNode of context.node.children['JsxExpression']) {
         context.node = subChildNode
-        context.path.push('JsxExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2459,10 +2547,13 @@ export class ProgramScanner {
         'JsxSelfClosingElement'
       ]) {
         context.node = subChildNode
-        context.path.push('JsxSelfClosingElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxSelfClosingElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2474,10 +2565,13 @@ export class ProgramScanner {
     if (context.node.children['JsxText']) {
       for (const subChildNode of context.node.children['JsxText']) {
         context.node = subChildNode
-        context.path.push('JsxText')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxTextNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2493,10 +2587,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2508,10 +2605,13 @@ export class ProgramScanner {
     if (context.node.children['SequenceExpression']) {
       for (const subChildNode of context.node.children['SequenceExpression']) {
         context.node = subChildNode
-        context.path.push('SequenceExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2523,10 +2623,13 @@ export class ProgramScanner {
     if (context.node.children['SpreadElement']) {
       for (const subChildNode of context.node.children['SpreadElement']) {
         context.node = subChildNode
-        context.path.push('SpreadElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSpreadElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2542,10 +2645,13 @@ export class ProgramScanner {
     if (context.node.children['JsxElement']) {
       for (const subChildNode of context.node.children['JsxElement']) {
         context.node = subChildNode
-        context.path.push('JsxElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2557,10 +2663,13 @@ export class ProgramScanner {
     if (context.node.children['JsxExpression']) {
       for (const subChildNode of context.node.children['JsxExpression']) {
         context.node = subChildNode
-        context.path.push('JsxExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2574,10 +2683,13 @@ export class ProgramScanner {
         'JsxSelfClosingElement'
       ]) {
         context.node = subChildNode
-        context.path.push('JsxSelfClosingElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxSelfClosingElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2589,10 +2701,13 @@ export class ProgramScanner {
     if (context.node.children['JsxText']) {
       for (const subChildNode of context.node.children['JsxText']) {
         context.node = subChildNode
-        context.path.push('JsxText')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanJsxTextNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2608,10 +2723,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2855,10 +2973,13 @@ export class ProgramScanner {
     if (context.node.children['Statement']) {
       for (const subChildNode of context.node.children['Statement']) {
         context.node = subChildNode
-        context.path.push('Statement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -2874,10 +2995,13 @@ export class ProgramScanner {
     if (context.node.children['VariableDeclarator']) {
       for (const subChildNode of context.node.children['VariableDeclarator']) {
         context.node = subChildNode
-        context.path.push('VariableDeclarator')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanVariableDeclaratorNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3109,10 +3233,13 @@ export class ProgramScanner {
     if (context.node.children['ImportSpecifier']) {
       for (const subChildNode of context.node.children['ImportSpecifier']) {
         context.node = subChildNode
-        context.path.push('ImportSpecifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanImportSpecifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3128,10 +3255,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3147,10 +3277,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3162,10 +3295,13 @@ export class ProgramScanner {
     if (context.node.children['NestedIdentifier']) {
       for (const subChildNode of context.node.children['NestedIdentifier']) {
         context.node = subChildNode
-        context.path.push('NestedIdentifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanNestedIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3645,10 +3781,13 @@ export class ProgramScanner {
     if (context.node.children['AssignmentPattern']) {
       for (const subChildNode of context.node.children['AssignmentPattern']) {
         context.node = subChildNode
-        context.path.push('AssignmentPattern')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanAssignmentPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3660,10 +3799,13 @@ export class ProgramScanner {
     if (context.node.children['MethodDefinition']) {
       for (const subChildNode of context.node.children['MethodDefinition']) {
         context.node = subChildNode
-        context.path.push('MethodDefinition')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanMethodDefinitionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3675,10 +3817,13 @@ export class ProgramScanner {
     if (context.node.children['Pair']) {
       for (const subChildNode of context.node.children['Pair']) {
         context.node = subChildNode
-        context.path.push('Pair')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanPairNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3692,10 +3837,13 @@ export class ProgramScanner {
         'ShorthandPropertyIdentifier'
       ]) {
         context.node = subChildNode
-        context.path.push('ShorthandPropertyIdentifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanShorthandPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3707,10 +3855,13 @@ export class ProgramScanner {
     if (context.node.children['SpreadElement']) {
       for (const subChildNode of context.node.children['SpreadElement']) {
         context.node = subChildNode
-        context.path.push('SpreadElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSpreadElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3726,10 +3877,13 @@ export class ProgramScanner {
     if (context.node.children['AssignmentPattern']) {
       for (const subChildNode of context.node.children['AssignmentPattern']) {
         context.node = subChildNode
-        context.path.push('AssignmentPattern')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanAssignmentPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3741,10 +3895,13 @@ export class ProgramScanner {
     if (context.node.children['MethodDefinition']) {
       for (const subChildNode of context.node.children['MethodDefinition']) {
         context.node = subChildNode
-        context.path.push('MethodDefinition')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanMethodDefinitionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3756,10 +3913,13 @@ export class ProgramScanner {
     if (context.node.children['Pair']) {
       for (const subChildNode of context.node.children['Pair']) {
         context.node = subChildNode
-        context.path.push('Pair')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanPairNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3773,10 +3933,13 @@ export class ProgramScanner {
         'ShorthandPropertyIdentifier'
       ]) {
         context.node = subChildNode
-        context.path.push('ShorthandPropertyIdentifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanShorthandPropertyIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3788,10 +3951,13 @@ export class ProgramScanner {
     if (context.node.children['SpreadElement']) {
       for (const subChildNode of context.node.children['SpreadElement']) {
         context.node = subChildNode
-        context.path.push('SpreadElement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSpreadElementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3911,10 +4077,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3926,10 +4095,13 @@ export class ProgramScanner {
     if (context.node.children['SequenceExpression']) {
       for (const subChildNode of context.node.children['SequenceExpression']) {
         context.node = subChildNode
-        context.path.push('SequenceExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3945,10 +4117,13 @@ export class ProgramScanner {
     if (context.node.children['Statement']) {
       for (const subChildNode of context.node.children['Statement']) {
         context.node = subChildNode
-        context.path.push('Statement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -3960,10 +4135,13 @@ export class ProgramScanner {
     if (context.node.children['HashBangLine']) {
       for (const subChildNode of context.node.children['HashBangLine']) {
         context.node = subChildNode
-        context.path.push('HashBangLine')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanHashBangLineNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4129,10 +4307,13 @@ export class ProgramScanner {
         'DestructuringPattern'
       ]) {
         context.node = subChildNode
-        context.path.push('DestructuringPattern')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanDestructuringPatternNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4144,10 +4325,13 @@ export class ProgramScanner {
     if (context.node.children['Identifier']) {
       for (const subChildNode of context.node.children['Identifier']) {
         context.node = subChildNode
-        context.path.push('Identifier')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanIdentifierNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4163,10 +4347,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4178,10 +4365,13 @@ export class ProgramScanner {
     if (context.node.children['SequenceExpression']) {
       for (const subChildNode of context.node.children['SequenceExpression']) {
         context.node = subChildNode
-        context.path.push('SequenceExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4261,10 +4451,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4280,10 +4473,13 @@ export class ProgramScanner {
     if (context.node.children['Statement']) {
       for (const subChildNode of context.node.children['Statement']) {
         context.node = subChildNode
-        context.path.push('Statement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4391,10 +4587,13 @@ export class ProgramScanner {
     if (context.node.children['SwitchCase']) {
       for (const subChildNode of context.node.children['SwitchCase']) {
         context.node = subChildNode
-        context.path.push('SwitchCase')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSwitchCaseNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4406,10 +4605,13 @@ export class ProgramScanner {
     if (context.node.children['SwitchDefault']) {
       for (const subChildNode of context.node.children['SwitchDefault']) {
         context.node = subChildNode
-        context.path.push('SwitchDefault')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSwitchDefaultNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4465,10 +4667,13 @@ export class ProgramScanner {
     if (context.node.children['Statement']) {
       for (const subChildNode of context.node.children['Statement']) {
         context.node = subChildNode
-        context.path.push('Statement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4484,10 +4689,13 @@ export class ProgramScanner {
     if (context.node.children['Statement']) {
       for (const subChildNode of context.node.children['Statement']) {
         context.node = subChildNode
-        context.path.push('Statement')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanStatementNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4547,10 +4755,13 @@ export class ProgramScanner {
     if (context.node.children['EscapeSequence']) {
       for (const subChildNode of context.node.children['EscapeSequence']) {
         context.node = subChildNode
-        context.path.push('EscapeSequence')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanEscapeSequenceNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4564,10 +4775,13 @@ export class ProgramScanner {
         'TemplateSubstitution'
       ]) {
         context.node = subChildNode
-        context.path.push('TemplateSubstitution')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanTemplateSubstitutionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4583,10 +4797,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4598,10 +4815,13 @@ export class ProgramScanner {
     if (context.node.children['SequenceExpression']) {
       for (const subChildNode of context.node.children['SequenceExpression']) {
         context.node = subChildNode
-        context.path.push('SequenceExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4681,10 +4901,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4696,10 +4919,13 @@ export class ProgramScanner {
     if (context.node.children['SequenceExpression']) {
       for (const subChildNode of context.node.children['SequenceExpression']) {
         context.node = subChildNode
-        context.path.push('SequenceExpression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanSequenceExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4827,10 +5053,13 @@ export class ProgramScanner {
     if (context.node.children['VariableDeclarator']) {
       for (const subChildNode of context.node.children['VariableDeclarator']) {
         context.node = subChildNode
-        context.path.push('VariableDeclarator')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanVariableDeclaratorNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent
@@ -4998,10 +5227,13 @@ export class ProgramScanner {
     if (context.node.children['Expression']) {
       for (const subChildNode of context.node.children['Expression']) {
         context.node = subChildNode
-        context.path.push('Expression')
+
+        const specificSubchildNodeTypeName = subChildNode.type
+        context.path.push(specificSubchildNodeTypeName)
 
         // Get the field's value
-        this.scanExpressionNode(context)
+        // @ts-ignore
+        this[`scan${specificSubchildNodeTypeName}Node`](context)
 
         // Go back to parent
         context.node = context.node.parent

@@ -134,10 +134,13 @@ export class ProgramScannerGenerator {
         if (context.node.children['${childNodeName.formatted}']) {
             for (const subChildNode of context.node.children['${childNodeName.formatted}']) {
                 context.node = subChildNode
-                context.path.push('${childNodeName.formatted}')
+
+                const specificSubchildNodeTypeName = subChildNode.type
+                context.path.push(specificSubchildNodeTypeName)
 
                 // Get the field's value
-                this.scan${childNodeName.formatted}Node(context)
+                // @ts-ignore
+                this[\`scan\${specificSubchildNodeTypeName}Node\`](context)
 
                 // Go back to parent
                 context.node = context.node.parent
