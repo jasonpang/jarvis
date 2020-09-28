@@ -3,6 +3,7 @@
   "include": ["src/**/*"],
   "references": [{ "path": "../common" }, { "path": "../parser" }],
   "compilerOptions": {
+    "jsx": "react",
     "outDir": "build"
   }
 }

@@ -1,16 +1,12 @@
+import { SourceChangeEvent } from '@jarvis/common'
+import { Program } from '@jarvis/parser'
 import { Application, net } from '@metarhia/jstp'
+import fs from 'fs'
 import os from 'os'
 import path from 'path'
-import fs from 'fs'
-import {
-  TextDocument,
-  TextDocumentChangeEvent,
-  Position,
-  TextDocumentContentChangeEvent
-} from 'vscode'
-import { Program } from '@jarvis/parser'
 import { inspect } from 'util'
-import { SourceChangeEvent } from '@jarvis/common'
+import { TextDocument } from 'vscode'
+import { Context } from './types'
 
 const trees: { [uri: string]: Program } = {}
 
@@ -27,15 +23,11 @@ const inspectOpts = {
 }
 
 export default class Server {
-  static removeExistingIpcFile() {
-    const ipcFilePath = path.join(os.tmpdir(), 'jarvis-ipc')
-    if (!fs.existsSync(ipcFilePath)) {
-      return
-    }
-    fs.unlinkSync(ipcFilePath)
+  constructor(private context: Context) {
+    this.context = context
   }
 
-  static run() {
+  run() {
     const app = new Application('jarvis', {
       vscode: {
         onDidOpenTextDocument: (
@@ -54,7 +46,7 @@ export default class Server {
         },
         onDidChangeTextDocument: (
           connection: any,
-          { deltas, documentUri }: SourceChangeEvent,
+          { deltas, documentUri, fullTextForFirstEventOnly }: SourceChangeEvent,
           callback: any
         ) => {
           if (!deltas.length) {
@@ -67,7 +59,7 @@ export default class Server {
             program.updateSource(deltas)
             program.scan()
           } else {
-            program = new Program('')
+            program = new Program(fullTextForFirstEventOnly)
             trees[documentUri] = program
           }
 
@@ -103,7 +95,7 @@ export default class Server {
       }
     })
 
-    Server.removeExistingIpcFile()
+    this.removeExistingIpcFile()
     const server = net.createServer([app])
     server.listen(
       path.join(
@@ -114,5 +106,13 @@ export default class Server {
         console.log('Jarvis IPC server listening.')
       }
     )
+  }
+
+  private removeExistingIpcFile() {
+    const ipcFilePath = path.join(os.tmpdir(), 'jarvis-ipc')
+    if (!fs.existsSync(ipcFilePath)) {
+      return
+    }
+    fs.unlinkSync(ipcFilePath)
   }
 }

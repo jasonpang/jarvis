@@ -45,31 +45,31 @@ export class TreeSitterParser {
   }
 
   updateSource(changes: SourceEdit[]) {
-    debugger
     for (const change of changes) {
       this.tree?.edit(change)
 
       const changeLines = change.text.split('\n')
 
       const numLinesDiff = change.newEndPosition.row - change.oldEndPosition.row
+
       if (numLinesDiff > 0) {
         /* e.g. Pasting 6 lines of code over 3 lines of code */
         this.source.splice(
-          change.oldEndPosition.row,
+          change.oldEndPosition.row + 1,
           0,
           ...Array(numLinesDiff).fill('')
         )
       } else if (numLinesDiff < 0) {
         /* e.g. Replacing 6 lines of code with 3 lines of code in one copy-paste operation */
         this.source.splice(
-          change.oldEndPosition.row - numLinesDiff,
-          numLinesDiff
+          change.oldEndPosition.row - -numLinesDiff + 1,
+          -numLinesDiff
         )
       }
 
       for (
         let row = change.startPosition.row;
-        row < change.newEndPosition.row;
+        row <= change.newEndPosition.row;
         row++
       ) {
         /* Could be adding new lines to a document */
@@ -105,15 +105,22 @@ export class TreeSitterParser {
           row === change.newEndPosition.row
         ) {
           /* This is a single-line change. */
+          const relativeIncrementIndex = row - change.startPosition.row
           content =
-            content.slice(change.startPosition.column) +
-            change +
-            content.slice(change.oldEndPosition.column)
+            content.slice(0, change.startPosition.column) +
+            changeLines[relativeIncrementIndex] +
+            (change.newEndPosition.column - change.oldEndPosition.column > 0
+              ? content.slice(change.newEndPosition.column)
+              : content.slice(change.oldEndPosition.column))
         }
 
-        this.source[change.startPosition.row] = content
+        this.source[row] = content
       }
     }
+
+    console.clear()
+    console.log('Source Code:')
+    console.log(this.source)
   }
 
   private getFormattedNodeName(unformattedOrFormattedNodeName: string) {
@@ -141,7 +148,11 @@ export class TreeSitterParser {
   parse() {
     this.tree = this.internalParser.parse(
       // @ts-ignore
-      (_index, position) => {
+      (index, position) => {
+        if (position == null) {
+          return undefined
+        }
+
         let line = this.source[position.row]
         if (line) {
           return line.slice(position.column)

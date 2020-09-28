@@ -2,7 +2,7 @@
   "scripts": {
     "watch": "clear && tsc --build --watch",
     "parser/generate": "node --enable-source-maps --stack-size=100 parser/build/parser/test/scripts/generateProgramScanner.js",
-    "server": "nodemon -x 'clear;node --enable-source-maps' --watch server/build/server server/build/server/src/index.js",
-    "extension/test": "nodemon -x 'clear;node --enable-source-maps' --watch vscode-client/build/vscode-client vscode-client/build/vscode-client/src/test/runTest.js"
+    "server": "nodemon -x 'clear;node --inspect-brk --enable-source-maps' --watch vscode-client/build --watch server/build --watch parser/build --watch common/build server/build/server/src/index.js",
+    "extension/test": "nodemon -x 'clear;node --enable-source-maps' --watch vscode-client/build --watch server/build --watch parser/build --watch common/build vscode-client/build/vscode-client/src/test/runTest.js"
   }
 }

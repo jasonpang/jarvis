@@ -17,7 +17,10 @@
   "dependencies": {
     "@metarhia/jstp": "^2.3.0",
     "@types/baretest": "^2.0.0",
+    "@types/react": "^16.9.49",
     "@types/vscode": "^1.48.0",
+    "ink": "^3.0.6",
+    "react": "^16.13.1",
     "tree-sitter": "^0.16.2",
     "tree-sitter-javascript": "file:../../tree-sitter-javascript",
     "web-tree-sitter": "^0.16.4"

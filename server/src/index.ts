@@ -1,3 +1,3 @@
-import Server from './Server'
+import { App } from './App'
 
-Server.run()
+new App().run()

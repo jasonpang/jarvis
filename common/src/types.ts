@@ -23,6 +23,10 @@ export interface SourceChangeEvent {
    * The new text for the range.
    */
   readonly deltas: SourceChangeDelta[]
+  /**
+   * The full text of the document content.
+   */
+  readonly fullTextForFirstEventOnly: string
 }
 
 export interface SourceChangeDelta {
