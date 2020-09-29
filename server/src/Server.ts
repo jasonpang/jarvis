@@ -23,8 +23,59 @@ const inspectOpts = {
 }
 
 export default class Server {
+  private jobs: SourceChangeEvent[] = []
+  private isRunningJob: boolean = false
+
   constructor(private context: Context) {
     this.context = context
+    this.jobs = []
+  }
+
+  async onDidChangeTextDocument({
+    deltas,
+    documentUri,
+    fullTextForFirstEventOnly
+  }: SourceChangeEvent) {
+    let program = trees[documentUri]
+
+    if (!program && typeof fullTextForFirstEventOnly !== 'string') {
+      return
+    }
+
+    if (fullTextForFirstEventOnly !== null) {
+      console.log(
+        `Full document text received. (${fullTextForFirstEventOnly?.length} chars)`
+      )
+    }
+
+    if (typeof fullTextForFirstEventOnly === 'string') {
+      program = new Program(fullTextForFirstEventOnly)
+      trees[documentUri] = program
+    } else {
+      if (deltas.length) {
+        program.updateSource(deltas)
+      }
+    }
+    await program.scan()
+
+    console.log(
+      '[vscode.onDidChangeTextDocument]',
+      inspect(program?.imports, inspectOpts)
+    )
+  }
+
+  async runJob() {
+    if (this.isRunningJob || !this.jobs.length) {
+      return
+    }
+    this.isRunningJob = true
+
+    while (this.jobs.length) {
+      // @ts-ignore
+      const job: SourceChangeEvent = this.jobs.shift()
+      await this.onDidChangeTextDocument(job)
+    }
+    this.isRunningJob = false
   }
 
   run() {
@@ -46,37 +97,11 @@ export default class Server {
         },
         onDidChangeTextDocument: (
           connection: any,
-          { deltas, documentUri, fullTextForFirstEventOnly }: SourceChangeEvent,
+          event: SourceChangeEvent,
           callback: any
         ) => {
-          let program = trees[documentUri]
-
-          if (!program && typeof fullTextForFirstEventOnly !== 'string') {
-            return
-          }
-          console.log(
-            'Got full text for first event!:',
-            fullTextForFirstEventOnly
-          )
-
-          if (typeof fullTextForFirstEventOnly === 'string') {
-            program = new Program(fullTextForFirstEventOnly)
-            trees[documentUri] = program
-          } else {
-            if (deltas.length) {
-              program.updateSource(deltas)
-            }
-            program.scan()
-          }
-
-          // console.clear()
-          console.log(
-            '[vscode.onDidChangeTextDocument]',
-            inspect(
-              program?.imports[program.imports.length - 1]?.source[0][0],
-              inspectOpts
-            )
-          )
+          this.jobs.push(event)
+          this.runJob()
         },
         onDidCloseTextDocument: (connection: any, data: any, callback: any) => {
           console.log(

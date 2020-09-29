@@ -29,6 +29,11 @@ export interface SourceChangeEvent {
   readonly fullTextForFirstEventOnly: string
 }
 
+export type Point = {
+  row: number
+  column: number
+}
+
 export interface SourceChangeDelta {
   /* Tree sitter syntax nodes store their position in the source code both in terms of raw bytes and row/column coordinates. */
 
@@ -54,4 +59,5 @@ export interface SourceChangeDelta {
    * The new text for the range.
    */
   text: string
+  range: { start: Point; end: Point }
 }

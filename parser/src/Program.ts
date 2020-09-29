@@ -30,15 +30,13 @@ export interface ConstructContext {
 export class Program {
   private parser: TreeSitterParser
   private scanner: ProgramScanner
-  public tree: SyntaxTreeNode
+  public tree!: SyntaxTreeNode
   public imports: ImportMap[] = []
   public exports: ExportMap[] = []
 
   constructor(private source: string) {
     this.parser = new TreeSitterParser(JavaScriptLanguageDefinition, source)
-    this.tree = this.parser.parse()
     this.scanner = new ProgramScanner()
-    this.scan()
   }
 
   getVarsFor(context: ConstructContext, patterns: string[]) {
@@ -49,16 +47,17 @@ export class Program {
 
   updateSource(deltas: SourceEdit[]) {
     this.parser.updateSource(deltas)
-    console.log('Updating deltas and setting new source code...', deltas)
   }
 
-  scan() {
-    this.tree = this.parser.parse()
+  async scan() {
+    console.log('Started parsing')
+    this.tree = await this.parser.parse()
+    console.log('Finished parsing')
     this.imports = []
     this.exports = []
-    console.log('Reparsing...:')
 
     for (const [nodeName, nodes] of Object.entries(this.tree.children)) {
+      console.log('Node Name:', nodeName)
       switch (nodeName) {
         case 'ImportStatement': {
           for (const node of nodes) {
@@ -81,7 +80,7 @@ export class Program {
               ]),
               source: this.getVarsFor(context, ['ImportStatement.source'])
             })
-            // console.log(`ImportStatement Scan (${node.text}):`, context.vars)
+            console.log(`ImportStatement Scan (${node.text}):`, context.vars)
           }
           break
         }

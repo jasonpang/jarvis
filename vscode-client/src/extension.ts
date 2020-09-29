@@ -120,13 +120,17 @@ function onDidChangeTextDocument(edit: TextDocumentChangeEvent) {
     const newEndPosition = asPoint(edit.document.positionAt(newEndIndex))
 
     return {
+      text: e.text,
+      range: {
+        start: { row: e.range.start.line, column: e.range.start.character },
+        end: { row: e.range.end.line, column: e.range.end.character }
+      },
       startIndex,
       oldEndIndex,
       newEndIndex,
       startPosition,
       oldEndPosition,
-      newEndPosition,
-      text: e.text
+      newEndPosition
     }
   })
 
@@ -143,15 +147,6 @@ function onDidChangeTextDocument(edit: TextDocumentChangeEvent) {
       deltas
     }
     app.vscode.onDidChangeTextDocument(payload)
-
-    console.log('Sending payload:', {
-      documentUri,
-      fullTextForFirstEventOnly:
-        !hasSentFullDocumentText[documentUri] || isEmptyDocument
-          ? edit.document.getText()
-          : null,
-      deltas
-    })
 
     if (!hasSentFullDocumentText[documentUri]) {
       hasSentFullDocumentText[documentUri] = true
