@@ -50,7 +50,6 @@ import.meta.url;
 test.skip(`parser playground`, () => {
   const parser = new TreeSitterParser(JavaScriptLanguageDefinition, program3)
   const result = parser.parse()
-  debugger
 })
 
 test.run()

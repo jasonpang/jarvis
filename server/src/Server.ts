@@ -49,18 +49,24 @@ export default class Server {
           { deltas, documentUri, fullTextForFirstEventOnly }: SourceChangeEvent,
           callback: any
         ) => {
-          if (!deltas.length) {
-            return
-          }
-
           let program = trees[documentUri]
 
-          if (program) {
-            program.updateSource(deltas)
-            program.scan()
-          } else {
+          if (!program && typeof fullTextForFirstEventOnly !== 'string') {
+            return
+          }
+          console.log(
+            'Got full text for first event!:',
+            fullTextForFirstEventOnly
+          )
+
+          if (typeof fullTextForFirstEventOnly === 'string') {
             program = new Program(fullTextForFirstEventOnly)
             trees[documentUri] = program
+          } else {
+            if (deltas.length) {
+              program.updateSource(deltas)
+            }
+            program.scan()
           }
 
           // console.clear()
@@ -88,8 +94,8 @@ export default class Server {
           const { server } = connection
 
           console.log('[imports.echo]', data)
-          // for (const conn of server.getClients()) {
-          //   connection.emitRemoteEvent('imports', 'message', ['some-data'])
+          // for (const conn of server.getClients()) {d
+          //   connection.emitRemoteEvent('imports', 'message', ['some-data']) s
           // }
         }
       }
@@ -103,6 +109,7 @@ export default class Server {
         'jarvis-ipc'
       ),
       () => {
+        console.clear()
         console.log('Jarvis IPC server listening.')
       }
     )

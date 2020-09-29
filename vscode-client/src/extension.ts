@@ -130,16 +130,30 @@ function onDidChangeTextDocument(edit: TextDocumentChangeEvent) {
     }
   })
 
+  const isEmptyDocument =
+    edit.document.lineCount === 1 && edit.document.getText() === ''
+
   if (app) {
-    app.vscode.onDidChangeTextDocument({
+    const payload = {
       documentUri,
-      fullTextForFirstEventOnly: !hasSentFullDocumentText[documentUri]
-        ? edit.document.getText()
-        : null,
+      fullTextForFirstEventOnly:
+        !hasSentFullDocumentText[documentUri] || isEmptyDocument
+          ? edit.document.getText()
+          : null,
+      deltas
+    }
+    app.vscode.onDidChangeTextDocument(payload)
+
+    console.log('Sending payload:', {
+      documentUri,
+      fullTextForFirstEventOnly:
+        !hasSentFullDocumentText[documentUri] || isEmptyDocument
+          ? edit.document.getText()
+          : null,
       deltas
     })
 
-    if (hasSentFullDocumentText[documentUri]) {
+    if (!hasSentFullDocumentText[documentUri]) {
       hasSentFullDocumentText[documentUri] = true
     }
   }

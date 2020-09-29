@@ -97,7 +97,7 @@ export class TreeSitterParser {
           row < change.newEndPosition.row
         ) {
           /* This is a multiline change and this is between the first and last changed row; the
-            entire text in this row is */
+            entire text in this row is  */
           const relativeIncrementIndex = row - change.startPosition.row
           content = changeLines[relativeIncrementIndex]
         } else if (
@@ -109,9 +109,10 @@ export class TreeSitterParser {
           content =
             content.slice(0, change.startPosition.column) +
             changeLines[relativeIncrementIndex] +
-            (change.newEndPosition.column - change.oldEndPosition.column > 0
-              ? content.slice(change.newEndPosition.column)
-              : content.slice(change.oldEndPosition.column))
+            content.slice(change.oldEndPosition.column)
+          // (change.newEndPosition.column > change.oldEndPosition.column
+          //   ? content.slice(change.newEndPosition.column)
+          //   : content.slice(change.oldEndPosition.column))
         }
 
         this.source[row] = content
@@ -158,7 +159,7 @@ export class TreeSitterParser {
           return line.slice(position.column)
         } else {
           console.error('Could not find column:', position.column)
-          return ''
+          return this.source.join('\n')
         }
       },
       this.prevTree
